@@ -20,7 +20,7 @@ php photosheet.php > index.html
   - No thumbnails are generated, so compress your images, max. 2000px height or width.
   - This thing is proposed “as is”, feel free to do whatever you want with it.
   
-  You can change these variables in `index.php`:
+  You can change these variables in `photosheet.php`:
   
  - Title
  - Description
