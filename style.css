@@ -1,0 +1,151 @@
+* { /* -- Adjust layout and colors here -- */
+  
+  --textsize:    16px;
+  --textcolor:   #eee;
+  --bgcolor:     #0e0e0f; 
+  --margin:      2vmax;
+  --thumbsize:   165px; /* maximum thumb width */
+  
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: var(--textsize)/1.35 system-ui,sans-serif;
+  color: var(--textcolor);
+  background: var(--bgcolor);
+  padding: var(--margin);
+}
+
+header {
+  margin-bottom: calc(var(--margin) * 2);
+}
+
+footer {
+  margin-top: calc(var(--margin) * 3);
+  font-size:.9em;
+  opacity: .4;
+}
+
+h1 {
+  font-size: 1em;
+}
+
+h1 span {
+  font-weight: normal;
+  display: inline-block;
+}
+  
+a {
+  color:currentColor;
+}
+
+/* -- Images grid -- */
+
+.grid {
+  display: grid;
+  grid-gap: var(--margin);
+  grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
+  grid-auto-flow: dense;
+}
+
+.grid a {
+  display:block;
+  position: relative;
+}
+
+.grid a img {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.grid a:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+  
+.grid figcaption {
+  font-size:.9em;
+  margin-top: calc(var(--margin) / 3);
+  text-align: center;
+  overflow-wrap: break-word;
+  opacity: .4;
+  transition: opacity .1s;
+}
+
+.grid figure:hover figcaption {
+  opacity: 1;
+}
+
+/* -- Lightbox -- */
+
+.lightbox {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--bgcolor);
+  visibility: hidden;
+}
+
+.lightbox img {
+  width: auto;
+  height: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  opacity: 0;
+}
+
+.lightbox:target {
+  visibility: visible;
+}
+
+.lightbox:target img {
+  z-index: 2;
+  opacity: 1;
+  transition: .25s opacity ease-out;
+}
+
+.lightbox:target:before { /* Loading spinner */
+  content:"";
+  height: 2em;
+  width: 2em;
+  animation: spin .8s infinite linear;
+  border: 1px solid;
+  border-right-color: transparent;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  transform: translateX(-50%);
+  opacity: .25;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.lightbox:target:after { /* X to close */
+  content: "\00D7";
+  position: fixed;
+  font-size: 2em;
+  font-weight: 200;
+  line-height: 0;
+  top: .75em;
+  right: .5em;
+  z-index: 4;
+}
