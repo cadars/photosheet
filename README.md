@@ -24,7 +24,6 @@ php photosheet.php > index.html
   
  - Title
  - Description
- - Site image
  
  And the ones for layout in `style.css`:
  
