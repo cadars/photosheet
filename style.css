@@ -1,6 +1,6 @@
 * { /* -- Adjust layout and colors here -- */
   
-  --textsize:    16px;
+  --textsize:    17px;
   --textcolor:   #eee;
   --bgcolor:     #0e0e0f; 
   --margin:      2vmax;
@@ -27,8 +27,8 @@ header {
 
 footer {
   margin-top: calc(var(--margin) * 3);
-  font-size:.9em;
-  opacity: .4;
+  font-size:.85em;
+  opacity: .3;
 }
 
 h1 {
@@ -42,6 +42,12 @@ h1 span {
   
 a {
   color:currentColor;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height:auto;
 }
 
 /* -- Images grid -- */
@@ -58,28 +64,36 @@ a {
   position: relative;
 }
 
-.grid a img {
-  display: block;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+@media (min-width:375px) {
 
-.grid a:before {
-  content: "";
-  display: block;
-  padding-top: 100%;
+  .grid a img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+    
+  .grid a:before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
+  
 }
   
 .grid figcaption {
-  font-size:.9em;
+  font-size:.85em;
   margin-top: calc(var(--margin) / 3);
   text-align: center;
   overflow-wrap: break-word;
-  opacity: .4;
-  transition: opacity .1s;
+  opacity: .3;
+  transition: all .05s;
+}
+
+.grid figure:hover {
+  transform:scale(1.02);
+  transform-origin:center bottom;
 }
 
 .grid figure:hover figcaption {
