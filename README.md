@@ -24,8 +24,10 @@ php photosheet.php > index.html
   
  - Title
  - Description
+ - Stylesheet
+ - Source folder for images
  
- And the ones for layout in `style.css`:
+ And these in `style.css`:
  
  - Text size and color
  - Background color
