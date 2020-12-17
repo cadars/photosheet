@@ -30,6 +30,6 @@ php photosheet.php > index.html
  - Text size and color
  - Background color
  - Margins
- - Maximum thumbnail size
+ - Thumbnail size
 
 </details>
