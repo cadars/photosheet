@@ -27,7 +27,7 @@ header {
 
 footer {
   margin-top: calc(var(--margin) * 3);
-  font-size:.85em;
+  font-size: .85em;
   opacity: .3;
 }
 
@@ -41,13 +41,13 @@ h1 span {
 }
   
 a {
-  color:currentColor;
+  color: currentColor;
 }
 
 img {
   display: block;
   max-width: 100%;
-  height:auto;
+  height: auto;
 }
 
 /* -- Images grid -- */
@@ -60,15 +60,17 @@ img {
 }
 
 .grid a {
-  display:block;
+  display: block;
   position: relative;
 }
 
 .grid figcaption {
-  font-size:.85em;
-  margin-top: calc(var(--margin) / 3);
+  font-size: .85em;
+  margin-top: calc(var(--margin) / 2);
   text-align: center;
-  overflow-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   opacity: .3;
   transition: all .1s;
 }
@@ -134,7 +136,7 @@ img {
 }
 
 .lightbox:target:before { /* Loading spinner */
-  content:"";
+  content: "";
   height: 2em;
   width: 2em;
   animation: spin .8s infinite linear;
