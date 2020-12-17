@@ -17,7 +17,7 @@ php photosheet.php > index.html
   <br>
   
   - Caution: it's probably unsafe(?) to host `photosheet.php` on a public server.
-  - No thumbnails are generated, so compress your images, max. 2000px height or width.
+  - No thumbnails are generated, so compress your images beforehand.
   - This thing is proposed “as is”, feel free to do whatever you want with it.
   
   You can change these variables in `photosheet.php`:
