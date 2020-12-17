@@ -9,7 +9,7 @@
   <style type="text/css">
     * { /* -- Adjust layout and colors here -- */
   
-  --textsize:    17px;
+  --textsize:    16px;
   --textcolor:   #eee;
   --bgcolor:     #0e0e0f; 
   --margin:      2vmax;
@@ -73,7 +73,20 @@ img {
   position: relative;
 }
 
-@media (min-width:375px) {
+.grid figcaption {
+  font-size:.85em;
+  margin-top: calc(var(--margin) / 3);
+  text-align: center;
+  overflow-wrap: break-word;
+  opacity: .3;
+  transition: all .1s;
+}
+
+.grid figure a:hover + figcaption {
+  opacity: 1;
+}
+
+@media (min-width:375px) { /* Contain images in a square */
 
   .grid a img {
     position: absolute;
@@ -89,19 +102,6 @@ img {
     padding-top: 100%;
   }
   
-}
-  
-.grid figcaption {
-  font-size:.85em;
-  margin-top: calc(var(--margin) / 3);
-  text-align: center;
-  overflow-wrap: break-word;
-  opacity: .3;
-  transition: all .05s;
-}
-
-.grid figure a:hover + figcaption {
-  opacity: 1;
 }
 
 /* -- Lightbox -- */
