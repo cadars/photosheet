@@ -4,7 +4,7 @@ A photo sheet generator.
 
 1. Put your images in the `img` folder
 2. Open `http://example.com/photosheet.php` in your browser
-3. Save as `index.html`
+3. Save as `index.html` or else
 
 Or from the command-line:
 
