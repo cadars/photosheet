@@ -51,7 +51,7 @@ for($x = 0; $x < $totimg; $x++)
   </a>
   ';
 }
-?>  
+?>
 <!doctype html>
 <html lang="en">
 <head>
