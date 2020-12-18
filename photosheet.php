@@ -1,4 +1,4 @@
-<?php // img-folio v.0.1
+<?php
 
 $site_title = "Photographs of Roadside America";
 $site_desc = "by John Margolies";
