@@ -57,6 +57,11 @@ img {
   grid-gap: calc(var(--margin) * 2) var(--margin);
   grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
   grid-auto-flow: dense;
+  counter-reset: num;
+}
+
+.grid figure {
+  position:relative;
 }
 
 .grid a {
@@ -75,8 +80,25 @@ img {
   transition: all .1s;
 }
 
+.grid figure a:hover:after {
+  /*opacity:1;*/
+}
+
 .grid figure a:hover + figcaption {
   opacity: 1;
+}
+
+.grid a:after {
+  counter-increment: num;
+  content: counter(num);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align:right;
+  z-index:9999;
+  font-size: .85em;
+  opacity: 0;
 }
 
 @media (min-width:375px) {
