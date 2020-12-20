@@ -62,9 +62,14 @@ img {
 
 .grid {
   display: grid;
-  grid-gap: calc(var(--margin) * 2) var(--margin);
+  grid-gap: calc(var(--margin) * 1.5) var(--margin);
   grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
   grid-auto-flow: dense;
+  counter-reset: num;
+}
+
+.grid figure {
+  position:relative;
 }
 
 .grid a {
@@ -83,15 +88,28 @@ img {
   transition: all .1s;
 }
 
+.grid figure a:hover:after {
+  /*opacity:1;*/
+}
+
 .grid figure a:hover + figcaption {
   opacity: 1;
 }
 
-@media (min-width:375px) {
+.grid a:after {
+  counter-increment: num;
+  content: counter(num);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align:right;
+  z-index:9999;
+  font-size: .85em;
+  opacity: 0;
+}
 
-  .grid {
-    grid-gap: var(--margin);
-  }
+@media (min-width:375px) {
   
   .grid a img {
     position: absolute;
@@ -425,7 +443,7 @@ img {
   </figure>
     </div>
   <footer>
-    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photosheet<a> was generated on December 18, 2020  </footer>
+    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photosheet<a> was generated on December 20, 2020  </footer>
   
   <a id="a-classic" class="lightbox landscape" href="#_">
     <img loading="lazy" width="980" height="665" src="img/A classic.jpg" alt="A classic" title="A classic">
