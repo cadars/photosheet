@@ -15,6 +15,10 @@ php photosheet.php > index.html
 <details>
   
   <br>
+  
+  - Caution: it's probably unsafe(?) to host `photosheet.php` on a public server.
+  - No thumbnails are generated, so compress your images beforehand.
+  - `.landscape` and `.portrait` classes are also available for styling purposes.
 
   Default variables in `photosheet.php`:
   ```
@@ -32,6 +36,5 @@ php photosheet.php > index.html
   --margin: 2vmax;
   --thumbsize: 165px;
   ```
-  - Caution: it's probably unsafe(?) to host `photosheet.php` on a public server.
-  - No thumbnails are generated, so compress your images beforehand.
+  
 </details>
