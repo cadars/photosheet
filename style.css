@@ -159,8 +159,8 @@ img {
 
 .lightbox:target:before { /* Loading spinner */
   content: "";
-  height: 2em;
-  width: 2em;
+  height: 1.5em;
+  width: 1.5em;
   animation: spin .8s infinite linear;
   border: 1px solid;
   border-right-color: transparent;
