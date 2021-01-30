@@ -1,6 +1,4 @@
-A photo sheet generator.
-
-**Requirements:** PHP
+Requirements: PHP
 
 1. Put your images in the `img` folder
 2. Open `http://example.com/photosheet.php` in your browser
@@ -21,7 +19,7 @@ php photosheet.php > index.html
   - `.landscape` and `.portrait` classes are also available for styling purposes.
 
   Default variables in `photosheet.php`:
-  ```
+  ```php
   $site_title = "Photographs of Roadside America";
   $site_desc = "by John Margolies";
   $site_style = 'style.css';
@@ -29,7 +27,7 @@ php photosheet.php > index.html
   $allowed_types = array('png','jpg','jpeg','gif');
   ```
  Default variables in `style.css`:
-  ```
+  ```css
   --textsize: 16px;
   --textcolor: #eee;
   --bgcolor: #0e0e0f;
