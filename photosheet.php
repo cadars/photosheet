@@ -3,7 +3,7 @@
 $site_title = "Photographs of Roadside America";
 $site_desc = "by John Margolies";
 $site_style = 'style.css';
-$img_folder = './img';
+$img_folder = 'img';
 $allowed_types = array('png','jpg','jpeg','gif');
 
 function create_slug($string){
@@ -39,7 +39,7 @@ for($x = 0; $x < $totimg; $x++)
   $grid .= '
   <figure class="'.$orientation.'">
     <a href="#'.$file_slug.'">
-      <img loading="lazy" width="'.$width.'" height="'.$height.'" src="img/'.$a_img[$x].'" alt="'.$file_name.'">
+      <img loading="lazy" width="'.$width.'" height="'.$height.'" src="'.$img_folder.'/'.$a_img[$x].'" alt="'.$file_name.'">
     </a>
     <figcaption>'.$file_name.'</figcaption>
   </figure>
@@ -47,7 +47,7 @@ for($x = 0; $x < $totimg; $x++)
   
   $lightbox .= '
   <a id="'.$file_slug.'" class="lightbox '.$orientation.'" href="#_">
-    <img loading="lazy" width="'.$width.'" height="'.$height.'" src="img/'.$a_img[$x].'" alt="'.$file_name.'" title="'.$file_name.'">
+    <img loading="lazy" width="'.$width.'" height="'.$height.'" src="'.$img_folder.'/'.$a_img[$x].'" alt="'.$file_name.'" title="'.$file_name.'">
   </a>
   ';
 }
