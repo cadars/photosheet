@@ -23,7 +23,7 @@ php photosheet.php > index.html
   $site_title = "Photographs of Roadside America";
   $site_desc = "by John Margolies";
   $site_style = 'style.css';
-  $img_folder = './img';
+  $img_folder = 'img';
   $allowed_types = array('png','jpg','jpeg','gif');
   ```
  Default variables in `style.css`:
