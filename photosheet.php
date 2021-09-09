@@ -71,7 +71,7 @@ for($x = 0; $x < $totimg; $x++)
     <?php echo $grid; ?>
   </div>
   <footer>
-    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photosheet<a> was generated on <?php echo date("F j, Y"); ?>
+    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet<a> was generated on <?php echo date("F j, Y"); ?>
   </footer>
   <?php echo $lightbox; ?>
 </body>
