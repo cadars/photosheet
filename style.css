@@ -1,4 +1,4 @@
-* { /* -- Adjust layout and colors here -- */
+html { /* -- Adjust layout and colors here -- */
   
   --textsize:    16px;
   --textcolor:   #eee;
@@ -19,6 +19,7 @@ body {
   color: var(--textcolor);
   background: var(--bgcolor);
   padding: var(--margin);
+  -webkit-tap-highlight-color: transparent;
 }
 
 header {
@@ -26,7 +27,7 @@ header {
 }
 
 footer {
-  margin-top: calc(var(--margin) * 3);
+  margin-top: calc(var(--margin) * 2);
   font-size: .85em;
   opacity: .3;
 }

@@ -6,7 +6,7 @@
   <title>Photographs of Roadside America</title>
   <meta name="description" content="by John Margolies">
   <style type="text/css">
-    * { /* -- Adjust layout and colors here -- */
+    html { /* -- Adjust layout and colors here -- */
   
   --textsize:    16px;
   --textcolor:   #eee;
@@ -27,6 +27,7 @@ body {
   color: var(--textcolor);
   background: var(--bgcolor);
   padding: var(--margin);
+  -webkit-tap-highlight-color: transparent;
 }
 
 header {
@@ -34,7 +35,7 @@ header {
 }
 
 footer {
-  margin-top: calc(var(--margin) * 3);
+  margin-top: calc(var(--margin) * 2);
   font-size: .85em;
   opacity: .3;
 }
@@ -167,8 +168,8 @@ img {
 
 .lightbox:target:before { /* Loading spinner */
   content: "";
-  height: 2em;
-  width: 2em;
+  height: 1.5em;
+  width: 1.5em;
   animation: spin .8s infinite linear;
   border: 1px solid;
   border-right-color: transparent;
@@ -447,7 +448,7 @@ img {
   </figure>
     </div>
   <footer>
-    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photosheet<a> was generated on December 20, 2020  </footer>
+    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet<a> was generated on December 5, 2021  </footer>
   
   <a id="a-classic" class="lightbox landscape" href="#_">
     <img loading="lazy" width="980" height="665" src="img/A classic.jpg" alt="A classic" title="A classic">
