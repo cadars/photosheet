@@ -14,7 +14,7 @@ php photosheet.php > index.html
   
   <br>
   
-  - Caution: it's probably unsafe(?) to host `photosheet.php` on a public server.
+  - Caution: it's probably unsafe(?) to host `photosheet.php` directly on a public server.
   - No thumbnails are generated, so compress your images beforehand.
   - `.landscape` and `.portrait` classes are also available for styling purposes.
 
