@@ -1,11 +1,11 @@
-html { /* -- Adjust layout and colors here -- */
-  
-  --textsize:    16px;
-  --textcolor:   #eee;
-  --bgcolor:     #0e0e0f; 
-  --margin:      2vmax;
-  --thumbsize:   165px; /* maximum thumb width */
-  
+html {
+  --textsize: 16px;
+  --textcolor: #eee;
+  --backcolor: #0e0e0f;
+
+  --margin: calc(0.8em + 1vw);
+  --thumbsize: 156px; /* size M */
+  --slide-transition: auto; /* smooth or auto */
 }
 
 * {
@@ -14,22 +14,27 @@ html { /* -- Adjust layout and colors here -- */
   box-sizing: border-box;
 }
 
+html,
 body {
-  font: var(--textsize)/1.35 system-ui,sans-serif;
+  scroll-behavior: smooth;
+  min-height: 100%;
+}
+
+body {
+  font: var(--textsize) / 1.4 system-ui, sans-serif;
   color: var(--textcolor);
-  background: var(--bgcolor);
-  padding: var(--margin);
+  background: var(--backcolor);
+  padding: var(--margin) var(--margin) 0;
+  overscroll-behavior: contain;
   -webkit-tap-highlight-color: transparent;
 }
 
-header {
-  margin-bottom: calc(var(--margin) * 2);
-}
-
 footer {
-  margin-top: calc(var(--margin) * 2);
-  font-size: .85em;
-  opacity: .3;
+  position: sticky;
+  top: 100vh;
+  padding: calc(var(--margin) * 2.5) 0 var(--margin) 0;
+  font-size: 0.85em;
+  opacity: 0.4;
 }
 
 h1 {
@@ -40,7 +45,7 @@ h1 span {
   font-weight: normal;
   display: inline-block;
 }
-  
+
 a {
   color: currentColor;
 }
@@ -49,141 +54,298 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  user-select: none;
+}
+
+/* Thumbnail sizes */
+
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  direction: rtl;
+}
+
+label {
+  user-select: none;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 0.05em 0.45em;
+  margin: -0.05em 0 0 0.2em;
+  float: right;
+  display: none;
+}
+
+label:hover,
+input:focus-visible + label {
+  outline: 1px solid;
+  border-radius: 1px;
+}
+
+input:checked + label {
+  opacity: 1;
+  font-weight: bold;
+}
+
+/* Show only on bigger screens */
+@media (min-width: 820px) {
+  label {
+    display: inline-block;
+  }
+  h1 {
+    display: inline-block;
+    float: left;
+    width: calc(100% - 14ch);
+  }
+}
+
+input#small:checked ~ .grid {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(calc(var(--thumbsize) / 2), 1fr)
+  );
+  grid-gap: var(--margin);
+}
+
+input#medium:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
+}
+
+input#large:checked ~ .grid {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(calc(var(--thumbsize) * 1.5), 1fr)
+  );
+  grid-gap: calc(var(--margin) * 1.5);
+}
+
+input#x-large:checked ~ .grid {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(calc(var(--thumbsize) * 2), 1fr)
+  );
+  grid-gap: calc(var(--margin) * 1.5);
 }
 
 /* -- Images grid -- */
 
 .grid {
+  clear: both;
   display: grid;
-  grid-gap: calc(var(--margin) * 2) var(--margin);
+  grid-gap: calc(var(--margin) * 1.5) var(--margin);
   grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
   grid-auto-flow: dense;
-  counter-reset: num;
+  padding-top: calc(var(--margin) * 2);
 }
 
 .grid figure {
-  position:relative;
+  position: relative;
 }
 
 .grid a {
   display: block;
   position: relative;
+  scroll-margin-top: 22vh;
+}
+
+.grid a img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.grid a:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
 }
 
 .grid figcaption {
-  font-size: .85em;
+  font-size: 0.85em;
   margin-top: calc(var(--margin) / 2);
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  opacity: .3;
-  transition: all .1s;
+  opacity: 0.5;
 }
 
-.grid figure a:hover:after {
-  /*opacity:1;*/
+.grid figure a:focus {
+  outline: 0 none;
+  border-radius: 1px;
+  box-shadow: 0 0 0 4px;
+  background: currentColor;
 }
 
-.grid figure a:hover + figcaption {
+.grid figure a:hover + figcaption,
+.grid figure a:focus + figcaption {
   opacity: 1;
-}
-
-.grid a:after {
-  counter-increment: num;
-  content: counter(num);
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  text-align:right;
-  z-index:9999;
-  font-size: .85em;
-  opacity: 0;
-}
-
-@media (min-width:375px) {
-  
-  .grid {
-    grid-gap:var(--margin);
-  }
-  
-  .grid a img {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-    
-  .grid a:before {
-    content: "";
-    display: block;
-    padding-top: 100%;
-  }
-  
 }
 
 /* -- Lightbox -- */
 
 .lightbox {
-  display: grid;
-  place-items: center;
-  align-content: center;
   position: fixed;
-  z-index: 1;
+  top: 0;
+  right: 100vw;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior: contain;
+  z-index: 5;
+}
+
+.lightbox:focus-within {
+  right: 0; /* hello */
+}
+
+.lightbox:hover {
+  scroll-behavior: var(--slide-transition);
+}
+
+.lightbox figure {
+  background: var(--backcolor);
+  position: relative;
+  scroll-snap-align: center;
+  flex: none;
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+/* fix for #permalinks to work */
+.lightbox:not(:focus-within) figure:target {
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: var(--bgcolor);
-  visibility: hidden;
+  z-index: 1;
 }
 
-.lightbox img {
+.lightbox figure:focus-visible {
+  outline: none;
+}
+
+.lightbox figure a.image {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.lightbox figure a.image img {
   width: auto;
   height: auto;
   max-width: 100vw;
   max-height: 100vh;
+  z-index: 2;
   opacity: 0;
 }
 
-.lightbox:target {
-  visibility: visible;
-}
-
-.lightbox:target img {
-  z-index: 2;
+.lightbox:focus-within figure a.image img,
+.lightbox:not(:focus-within) figure:target a.image img {
   opacity: 1;
-  transition: .25s opacity ease-out;
+  transition: 0.35s opacity ease-out;
 }
 
-.lightbox:target:before { /* Loading spinner */
+/* Prev / Next */
+
+.lightbox figure a.image:before,
+.lightbox figure a.image:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50vw;
+  z-index: 3;
+}
+
+.lightbox figure a.image:before {
+  left: -50vw;
+}
+
+.lightbox figure a.image:after {
+  right: -50vw;
+}
+
+.lightbox figure:first-of-type a.image:before,
+.lightbox figure:last-of-type a.image:after {
+  display: none;
+}
+
+/* -- Close button -- */
+
+a.close {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  z-index: 20;
+  opacity: 0.4;
+  width: 8em;
+  height: 8em;
+}
+
+a.close:focus-visible {
+  outline: 0;
+}
+
+a.close:before,
+a.close:after {
+  pointer-events: none;
+  position: absolute;
+  top: 2em;
+  right: 1.8em;
+  content: "";
+  width: 1.1em;
+  border: 1px solid;
+  display: block;
+}
+
+a.close:before {
+  transform: rotate(45deg);
+}
+
+a.close:after {
+  transform: rotate(-45deg);
+}
+
+a.close:hover {
+  opacity: 1;
+}
+
+/* -- Loading spinner -- */
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.lightbox figure:before {
   content: "";
   height: 1.5em;
   width: 1.5em;
-  animation: spin .8s infinite linear;
+  animation: spin 0.8s infinite linear;
   border: 1px solid;
   border-right-color: transparent;
   border-radius: 50%;
   display: block;
   position: absolute;
   transform: translateX(-50%);
-  opacity: .25;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.lightbox:target:after { /* X to close */
-  content: "\00D7";
-  position: fixed;
-  font-size: 2em;
-  font-weight: 200;
-  line-height: 0;
-  top: .75em;
-  right: .5em;
-  z-index: 4;
+  opacity: 0.25;
 }

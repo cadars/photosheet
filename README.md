@@ -14,25 +14,27 @@ php photosheet.php > index.html
   
   <br>
   
-  - Caution: it's probably unsafe(?) to host `photosheet.php` directly on a public server.
-  - No thumbnails are generated, so compress your images beforehand.
-  - `.landscape` and `.portrait` classes are also available for styling purposes.
+  - Navigate within the lightbox on tap/click/swipe/scroll, with <kbd>Tab ↹</kbd>, and with the <kbd>&larr;</kbd> <kbd>&rarr;</kbd> keys
+  - Javascript is used to close the lightbox with <kbd>Esc</kbd>
+  - Images should be compressed by other means when publishing online, as no thumbnails are generated
+  - `figure.landscape` and `figure.portrait` are available for styling
 
   Default variables in `photosheet.php`:
   ```php
   $site_title = "Photographs of Roadside America";
   $site_desc = "by John Margolies";
-  $site_style = 'style.css';
-  $img_folder = 'img';
-  $allowed_types = array('png','jpg','jpeg','gif');
+  $site_style = "style.css";
+  $img_folder = "img/john-margolies";
+  $allowed_types = ["gif","jpg","jpeg","png","webp"];
   ```
  Default variables in `style.css`:
   ```css
   --textsize: 16px;
   --textcolor: #eee;
-  --bgcolor: #0e0e0f;
-  --margin: 2vmax;
-  --thumbsize: 165px;
+  --backcolor: #0e0e0f;
+  --margin: calc(0.8em + 1vw);
+  --thumbsize: 156px;
+  --slide-transition: auto;
   ```
   
 </details>

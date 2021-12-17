@@ -6,14 +6,14 @@
   <title>Photographs of Roadside America</title>
   <meta name="description" content="by John Margolies">
   <style type="text/css">
-    html { /* -- Adjust layout and colors here -- */
-  
-  --textsize:    16px;
-  --textcolor:   #eee;
-  --bgcolor:     #0e0e0f; 
-  --margin:      2vmax;
-  --thumbsize:   165px; /* maximum thumb width */
-  
+    html {
+  --textsize: 16px;
+  --textcolor: #eee;
+  --backcolor: #0e0e0f;
+
+  --margin: calc(0.8em + 1vw);
+  --thumbsize: 156px; /* size M */
+  --slide-transition: auto; /* smooth or auto */
 }
 
 * {
@@ -22,22 +22,27 @@
   box-sizing: border-box;
 }
 
+html,
 body {
-  font: var(--textsize)/1.35 system-ui,sans-serif;
+  scroll-behavior: smooth;
+  min-height: 100%;
+}
+
+body {
+  font: var(--textsize) / 1.4 system-ui, sans-serif;
   color: var(--textcolor);
-  background: var(--bgcolor);
-  padding: var(--margin);
+  background: var(--backcolor);
+  padding: var(--margin) var(--margin) 0;
+  overscroll-behavior: contain;
   -webkit-tap-highlight-color: transparent;
 }
 
-header {
-  margin-bottom: calc(var(--margin) * 2);
-}
-
 footer {
-  margin-top: calc(var(--margin) * 2);
-  font-size: .85em;
-  opacity: .3;
+  position: sticky;
+  top: 100vh;
+  padding: calc(var(--margin) * 2.5) 0 var(--margin) 0;
+  font-size: 0.85em;
+  opacity: 0.4;
 }
 
 h1 {
@@ -48,7 +53,7 @@ h1 span {
   font-weight: normal;
   display: inline-block;
 }
-  
+
 a {
   color: currentColor;
 }
@@ -57,537 +62,821 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  user-select: none;
+}
+
+/* Thumbnail sizes */
+
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  direction: rtl;
+}
+
+label {
+  user-select: none;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 0.05em 0.45em;
+  margin: -0.05em 0 0 0.2em;
+  float: right;
+  display: none;
+}
+
+label:hover,
+input:focus-visible + label {
+  outline: 1px solid;
+  border-radius: 1px;
+}
+
+input:checked + label {
+  opacity: 1;
+  font-weight: bold;
+}
+
+/* Show only on bigger screens */
+@media (min-width: 820px) {
+  label {
+    display: inline-block;
+  }
+  h1 {
+    display: inline-block;
+    float: left;
+    width: calc(100% - 14ch);
+  }
+}
+
+input#small:checked ~ .grid {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(calc(var(--thumbsize) / 2), 1fr)
+  );
+  grid-gap: var(--margin);
+}
+
+input#medium:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
+}
+
+input#large:checked ~ .grid {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(calc(var(--thumbsize) * 1.5), 1fr)
+  );
+  grid-gap: calc(var(--margin) * 1.5);
+}
+
+input#x-large:checked ~ .grid {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(calc(var(--thumbsize) * 2), 1fr)
+  );
+  grid-gap: calc(var(--margin) * 1.5);
 }
 
 /* -- Images grid -- */
 
 .grid {
+  clear: both;
   display: grid;
-  grid-gap: calc(var(--margin) * 2) var(--margin);
+  grid-gap: calc(var(--margin) * 1.5) var(--margin);
   grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
   grid-auto-flow: dense;
-  counter-reset: num;
+  padding-top: calc(var(--margin) * 2);
 }
 
 .grid figure {
-  position:relative;
+  position: relative;
 }
 
 .grid a {
   display: block;
   position: relative;
+  scroll-margin-top: 22vh;
+}
+
+.grid a img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.grid a:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
 }
 
 .grid figcaption {
-  font-size: .85em;
+  font-size: 0.85em;
   margin-top: calc(var(--margin) / 2);
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  opacity: .3;
-  transition: all .1s;
+  opacity: 0.5;
 }
 
-.grid figure a:hover:after {
-  /*opacity:1;*/
+.grid figure a:focus {
+  outline: 0 none;
+  border-radius: 1px;
+  box-shadow: 0 0 0 4px;
+  background: currentColor;
 }
 
-.grid figure a:hover + figcaption {
+.grid figure a:hover + figcaption,
+.grid figure a:focus + figcaption {
   opacity: 1;
-}
-
-.grid a:after {
-  counter-increment: num;
-  content: counter(num);
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  text-align:right;
-  z-index:9999;
-  font-size: .85em;
-  opacity: 0;
-}
-
-@media (min-width:375px) {
-  
-  .grid {
-    grid-gap:var(--margin);
-  }
-  
-  .grid a img {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-    
-  .grid a:before {
-    content: "";
-    display: block;
-    padding-top: 100%;
-  }
-  
 }
 
 /* -- Lightbox -- */
 
 .lightbox {
-  display: grid;
-  place-items: center;
-  align-content: center;
   position: fixed;
-  z-index: 1;
+  top: 0;
+  right: 100vw;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior: contain;
+  z-index: 5;
+}
+
+.lightbox:focus-within {
+  right: 0; /* hello */
+}
+
+.lightbox:hover {
+  scroll-behavior: var(--slide-transition);
+}
+
+.lightbox figure {
+  background: var(--backcolor);
+  position: relative;
+  scroll-snap-align: center;
+  flex: none;
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+/* fix for #permalinks to work */
+.lightbox:not(:focus-within) figure:target {
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: var(--bgcolor);
-  visibility: hidden;
+  z-index: 1;
 }
 
-.lightbox img {
+.lightbox figure:focus-visible {
+  outline: none;
+}
+
+.lightbox figure a.image {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.lightbox figure a.image img {
   width: auto;
   height: auto;
   max-width: 100vw;
   max-height: 100vh;
+  z-index: 2;
   opacity: 0;
 }
 
-.lightbox:target {
-  visibility: visible;
-}
-
-.lightbox:target img {
-  z-index: 2;
+.lightbox:focus-within figure a.image img,
+.lightbox:not(:focus-within) figure:target a.image img {
   opacity: 1;
-  transition: .25s opacity ease-out;
+  transition: 0.35s opacity ease-out;
 }
 
-.lightbox:target:before { /* Loading spinner */
+/* Prev / Next */
+
+.lightbox figure a.image:before,
+.lightbox figure a.image:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50vw;
+  z-index: 3;
+}
+
+.lightbox figure a.image:before {
+  left: -50vw;
+}
+
+.lightbox figure a.image:after {
+  right: -50vw;
+}
+
+.lightbox figure:first-of-type a.image:before,
+.lightbox figure:last-of-type a.image:after {
+  display: none;
+}
+
+/* -- Close button -- */
+
+a.close {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  z-index: 20;
+  opacity: 0.4;
+  width: 8em;
+  height: 8em;
+}
+
+a.close:focus-visible {
+  outline: 0;
+}
+
+a.close:before,
+a.close:after {
+  pointer-events: none;
+  position: absolute;
+  top: 2em;
+  right: 1.8em;
+  content: "";
+  width: 1.1em;
+  border: 1px solid;
+  display: block;
+}
+
+a.close:before {
+  transform: rotate(45deg);
+}
+
+a.close:after {
+  transform: rotate(-45deg);
+}
+
+a.close:hover {
+  opacity: 1;
+}
+
+/* -- Loading spinner -- */
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.lightbox figure:before {
   content: "";
   height: 1.5em;
   width: 1.5em;
-  animation: spin .8s infinite linear;
+  animation: spin 0.8s infinite linear;
   border: 1px solid;
   border-right-color: transparent;
   border-radius: 50%;
   display: block;
   position: absolute;
   transform: translateX(-50%);
-  opacity: .25;
+  opacity: 0.25;
 }
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.lightbox:target:after { /* X to close */
-  content: "\00D7";
-  position: fixed;
-  font-size: 2em;
-  font-weight: 200;
-  line-height: 0;
-  top: .75em;
-  right: .5em;
-  z-index: 4;
-}  </style>
+  </style>
 </head>
 <body>
-  <header>
+  <main>
     <h1>Photographs of Roadside America <span>by John Margolies</span></h1>
-  </header>
-  <div class="grid">
-    
+    <input type="radio" name="size" id="x-large">
+    <label for="x-large">XL</label>
+    <input type="radio" name="size" id="large">
+    <label for="large">L</label>
+    <input checked type="radio" name="size" id="medium">
+    <label for="medium">M</label>
+    <input type="radio" name="size" id="small">
+    <label for="small">S</label>
+    <div class="grid">
+      
   <figure class="landscape">
-    <a href="#a-classic">
-      <img loading="lazy" width="980" height="665" src="img/A classic.jpg" alt="A classic">
+    <a href="#a-classic" id="a-classic-thumb">
+      <img loading="lazy" width="980" height="665" src="img/john-margolies/A classic.jpg" alt="A classic">
     </a>
     <figcaption>A classic</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#a-taste-of-italy">
-      <img loading="lazy" width="661" height="974" src="img/A taste of Italy.jpg" alt="A taste of Italy">
+    <a href="#a-taste-of-italy" id="a-taste-of-italy-thumb">
+      <img loading="lazy" width="661" height="974" src="img/john-margolies/A taste of Italy.jpg" alt="A taste of Italy">
     </a>
     <figcaption>A taste of Italy</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#apple-pie-exit">
-      <img loading="lazy" width="983" height="668" src="img/Apple pie exit.jpg" alt="Apple pie exit">
+    <a href="#apple-pie-exit" id="apple-pie-exit-thumb">
+      <img loading="lazy" width="983" height="668" src="img/john-margolies/Apple pie exit.jpg" alt="Apple pie exit">
     </a>
     <figcaption>Apple pie exit</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#aztec-motel">
-      <img loading="lazy" width="966" height="640" src="img/Aztec motel.jpg" alt="Aztec motel">
+    <a href="#aztec-motel" id="aztec-motel-thumb">
+      <img loading="lazy" width="966" height="640" src="img/john-margolies/Aztec motel.jpg" alt="Aztec motel">
     </a>
     <figcaption>Aztec motel</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#ballroom-entrance">
-      <img loading="lazy" width="973" height="656" src="img/Ballroom entrance.jpg" alt="Ballroom entrance">
+    <a href="#ballroom-entrance" id="ballroom-entrance-thumb">
+      <img loading="lazy" width="973" height="656" src="img/john-margolies/Ballroom entrance.jpg" alt="Ballroom entrance">
     </a>
     <figcaption>Ballroom entrance</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#best-of-both-worlds">
-      <img loading="lazy" width="977" height="656" src="img/Best of both worlds.jpg" alt="Best of both worlds">
+    <a href="#best-of-both-worlds" id="best-of-both-worlds-thumb">
+      <img loading="lazy" width="977" height="656" src="img/john-margolies/Best of both worlds.jpg" alt="Best of both worlds">
     </a>
     <figcaption>Best of both worlds</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#big-fish">
-      <img loading="lazy" width="961" height="649" src="img/Big fish.jpg" alt="Big fish">
+    <a href="#big-fish" id="big-fish-thumb">
+      <img loading="lazy" width="961" height="649" src="img/john-margolies/Big fish.jpg" alt="Big fish">
     </a>
     <figcaption>Big fish</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#budget-knight">
-      <img loading="lazy" width="993" height="673" src="img/Budget knight.jpg" alt="Budget knight">
+    <a href="#budget-knight" id="budget-knight-thumb">
+      <img loading="lazy" width="993" height="673" src="img/john-margolies/Budget knight.jpg" alt="Budget knight">
     </a>
     <figcaption>Budget knight</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#buffalo">
-      <img loading="lazy" width="990" height="659" src="img/Buffalo.jpg" alt="Buffalo">
+    <a href="#buffalo" id="buffalo-thumb">
+      <img loading="lazy" width="990" height="659" src="img/john-margolies/Buffalo.jpg" alt="Buffalo">
     </a>
     <figcaption>Buffalo</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#car-wash">
-      <img loading="lazy" width="672" height="985" src="img/Car wash.jpg" alt="Car wash">
+    <a href="#car-wash" id="car-wash-thumb">
+      <img loading="lazy" width="672" height="985" src="img/john-margolies/Car wash.jpg" alt="Car wash">
     </a>
     <figcaption>Car wash</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#censored-king-kong">
-      <img loading="lazy" width="649" height="948" src="img/Censored King Kong.jpg" alt="Censored King Kong">
+    <a href="#censored-king-kong" id="censored-king-kong-thumb">
+      <img loading="lazy" width="649" height="948" src="img/john-margolies/Censored King Kong.jpg" alt="Censored King Kong">
     </a>
     <figcaption>Censored King Kong</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#chicken-sign">
-      <img loading="lazy" width="662" height="961" src="img/Chicken sign.jpg" alt="Chicken sign">
+    <a href="#chicken-sign" id="chicken-sign-thumb">
+      <img loading="lazy" width="662" height="961" src="img/john-margolies/Chicken sign.jpg" alt="Chicken sign">
     </a>
     <figcaption>Chicken sign</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#concert-venue">
-      <img loading="lazy" width="950" height="639" src="img/Concert venue.jpg" alt="Concert venue">
+    <a href="#concert-venue" id="concert-venue-thumb">
+      <img loading="lazy" width="950" height="639" src="img/john-margolies/Concert venue.jpg" alt="Concert venue">
     </a>
     <figcaption>Concert venue</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#concrete-teepees">
-      <img loading="lazy" width="992" height="675" src="img/Concrete teepees.jpg" alt="Concrete teepees">
+    <a href="#concrete-teepees" id="concrete-teepees-thumb">
+      <img loading="lazy" width="992" height="675" src="img/john-margolies/Concrete teepees.jpg" alt="Concrete teepees">
     </a>
     <figcaption>Concrete teepees</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#dinosaur-village">
-      <img loading="lazy" width="977" height="661" src="img/Dinosaur village.jpg" alt="Dinosaur village">
+    <a href="#dinosaur-village" id="dinosaur-village-thumb">
+      <img loading="lazy" width="977" height="661" src="img/john-margolies/Dinosaur village.jpg" alt="Dinosaur village">
     </a>
     <figcaption>Dinosaur village</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#eye">
-      <img loading="lazy" width="940" height="640" src="img/Eye.jpg" alt="Eye">
+    <a href="#eye" id="eye-thumb">
+      <img loading="lazy" width="940" height="640" src="img/john-margolies/Eye.jpg" alt="Eye">
     </a>
     <figcaption>Eye</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#flamingo">
-      <img loading="lazy" width="965" height="653" src="img/Flamingo.jpg" alt="Flamingo">
+    <a href="#flamingo" id="flamingo-thumb">
+      <img loading="lazy" width="965" height="653" src="img/john-margolies/Flamingo.jpg" alt="Flamingo">
     </a>
     <figcaption>Flamingo</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#fox-tower">
-      <img loading="lazy" width="652" height="976" src="img/Fox tower.jpg" alt="Fox tower">
+    <a href="#fox-tower" id="fox-tower-thumb">
+      <img loading="lazy" width="652" height="976" src="img/john-margolies/Fox tower.jpg" alt="Fox tower">
     </a>
     <figcaption>Fox tower</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#hat-and-boots">
-      <img loading="lazy" width="984" height="664" src="img/Hat and boots.jpg" alt="Hat and boots">
+    <a href="#hat-and-boots" id="hat-and-boots-thumb">
+      <img loading="lazy" width="984" height="664" src="img/john-margolies/Hat and boots.jpg" alt="Hat and boots">
     </a>
     <figcaption>Hat and boots</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#hoot-owl-cafe">
-      <img loading="lazy" width="1001" height="680" src="img/Hoot owl cafe.jpg" alt="Hoot owl cafe">
+    <a href="#hoot-owl-cafe" id="hoot-owl-cafe-thumb">
+      <img loading="lazy" width="1001" height="680" src="img/john-margolies/Hoot owl cafe.jpg" alt="Hoot owl cafe">
     </a>
     <figcaption>Hoot owl cafe</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#ko-ko-mo">
-      <img loading="lazy" width="968" height="656" src="img/Ko ko mo.jpg" alt="Ko ko mo">
+    <a href="#ko-ko-mo" id="ko-ko-mo-thumb">
+      <img loading="lazy" width="968" height="656" src="img/john-margolies/Ko ko mo.jpg" alt="Ko ko mo">
     </a>
     <figcaption>Ko ko mo</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#loch-ness-auto-shop">
-      <img loading="lazy" width="1000" height="672" src="img/Loch Ness auto shop.jpg" alt="Loch Ness auto shop">
+    <a href="#loch-ness-auto-shop" id="loch-ness-auto-shop-thumb">
+      <img loading="lazy" width="1000" height="672" src="img/john-margolies/Loch Ness auto shop.jpg" alt="Loch Ness auto shop">
     </a>
     <figcaption>Loch Ness auto shop</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#motel">
-      <img loading="lazy" width="996" height="675" src="img/Motel.jpg" alt="Motel">
+    <a href="#motel" id="motel-thumb">
+      <img loading="lazy" width="996" height="675" src="img/john-margolies/Motel.jpg" alt="Motel">
     </a>
     <figcaption>Motel</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#moulin-vert">
-      <img loading="lazy" width="975" height="656" src="img/Moulin Vert.jpg" alt="Moulin Vert">
+    <a href="#moulin-vert" id="moulin-vert-thumb">
+      <img loading="lazy" width="975" height="656" src="img/john-margolies/Moulin Vert.jpg" alt="Moulin Vert">
     </a>
     <figcaption>Moulin Vert</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#neon-couch">
-      <img loading="lazy" width="984" height="664" src="img/Neon couch.jpg" alt="Neon couch">
+    <a href="#neon-couch" id="neon-couch-thumb">
+      <img loading="lazy" width="984" height="664" src="img/john-margolies/Neon couch.jpg" alt="Neon couch">
     </a>
     <figcaption>Neon couch</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#neon-sign">
-      <img loading="lazy" width="654" height="970" src="img/Neon sign.jpg" alt="Neon sign">
+    <a href="#neon-sign" id="neon-sign-thumb">
+      <img loading="lazy" width="654" height="970" src="img/john-margolies/Neon sign.jpg" alt="Neon sign">
     </a>
     <figcaption>Neon sign</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#psa">
-      <img loading="lazy" width="956" height="652" src="img/PSA.jpg" alt="PSA">
+    <a href="#psa" id="psa-thumb">
+      <img loading="lazy" width="956" height="652" src="img/john-margolies/PSA.jpg" alt="PSA">
     </a>
     <figcaption>PSA</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#peach">
-      <img loading="lazy" width="667" height="976" src="img/Peach.jpg" alt="Peach">
+    <a href="#peach" id="peach-thumb">
+      <img loading="lazy" width="667" height="976" src="img/john-margolies/Peach.jpg" alt="Peach">
     </a>
     <figcaption>Peach</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#red-rooster-sign">
-      <img loading="lazy" width="693" height="1000" src="img/Red rooster sign.jpg" alt="Red rooster sign">
+    <a href="#red-rooster-sign" id="red-rooster-sign-thumb">
+      <img loading="lazy" width="693" height="1000" src="img/john-margolies/Red rooster sign.jpg" alt="Red rooster sign">
     </a>
     <figcaption>Red rooster sign</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#roadside-art">
-      <img loading="lazy" width="980" height="657" src="img/Roadside art.jpg" alt="Roadside art">
+    <a href="#roadside-art" id="roadside-art-thumb">
+      <img loading="lazy" width="980" height="657" src="img/john-margolies/Roadside art.jpg" alt="Roadside art">
     </a>
     <figcaption>Roadside art</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#robot">
-      <img loading="lazy" width="666" height="976" src="img/Robot.jpg" alt="Robot">
+    <a href="#robot" id="robot-thumb">
+      <img loading="lazy" width="666" height="976" src="img/john-margolies/Robot.jpg" alt="Robot">
     </a>
     <figcaption>Robot</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#teapot-cabaret">
-      <img loading="lazy" width="970" height="648" src="img/Teapot cabaret.jpg" alt="Teapot cabaret">
+    <a href="#teapot-cabaret" id="teapot-cabaret-thumb">
+      <img loading="lazy" width="970" height="648" src="img/john-margolies/Teapot cabaret.jpg" alt="Teapot cabaret">
     </a>
     <figcaption>Teapot cabaret</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#trading-post">
-      <img loading="lazy" width="992" height="642" src="img/Trading post.jpg" alt="Trading post">
+    <a href="#trading-post" id="trading-post-thumb">
+      <img loading="lazy" width="992" height="642" src="img/john-margolies/Trading post.jpg" alt="Trading post">
     </a>
     <figcaption>Trading post</figcaption>
   </figure>
   
   <figure class="landscape">
-    <a href="#whale-garage">
-      <img loading="lazy" width="978" height="663" src="img/Whale garage.jpg" alt="Whale garage">
+    <a href="#whale-garage" id="whale-garage-thumb">
+      <img loading="lazy" width="978" height="663" src="img/john-margolies/Whale garage.jpg" alt="Whale garage">
     </a>
     <figcaption>Whale garage</figcaption>
   </figure>
   
   <figure class="portrait">
-    <a href="#white-rooster-sign">
-      <img loading="lazy" width="657" height="963" src="img/White rooster sign.jpg" alt="White rooster sign">
+    <a href="#white-rooster-sign" id="white-rooster-sign-thumb">
+      <img loading="lazy" width="657" height="963" src="img/john-margolies/White rooster sign.jpg" alt="White rooster sign">
     </a>
     <figcaption>White rooster sign</figcaption>
   </figure>
-    </div>
+      </div>
+    <div class="lightbox">
+      
+  <figure tabindex="0" id="a-classic" class="landscape">
+    <a tabindex="-1" href="#a-classic" class="image">
+      <img loading="lazy" width="980" height="665" src="img/john-margolies/A classic.jpg" alt="A classic" title="A classic">
+    </a>
+    <a tabindex="-1" href="#a-classic-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="a-taste-of-italy" class="portrait">
+    <a tabindex="-1" href="#a-taste-of-italy" class="image">
+      <img loading="lazy" width="661" height="974" src="img/john-margolies/A taste of Italy.jpg" alt="A taste of Italy" title="A taste of Italy">
+    </a>
+    <a tabindex="-1" href="#a-taste-of-italy-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="apple-pie-exit" class="landscape">
+    <a tabindex="-1" href="#apple-pie-exit" class="image">
+      <img loading="lazy" width="983" height="668" src="img/john-margolies/Apple pie exit.jpg" alt="Apple pie exit" title="Apple pie exit">
+    </a>
+    <a tabindex="-1" href="#apple-pie-exit-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="aztec-motel" class="landscape">
+    <a tabindex="-1" href="#aztec-motel" class="image">
+      <img loading="lazy" width="966" height="640" src="img/john-margolies/Aztec motel.jpg" alt="Aztec motel" title="Aztec motel">
+    </a>
+    <a tabindex="-1" href="#aztec-motel-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="ballroom-entrance" class="landscape">
+    <a tabindex="-1" href="#ballroom-entrance" class="image">
+      <img loading="lazy" width="973" height="656" src="img/john-margolies/Ballroom entrance.jpg" alt="Ballroom entrance" title="Ballroom entrance">
+    </a>
+    <a tabindex="-1" href="#ballroom-entrance-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="best-of-both-worlds" class="landscape">
+    <a tabindex="-1" href="#best-of-both-worlds" class="image">
+      <img loading="lazy" width="977" height="656" src="img/john-margolies/Best of both worlds.jpg" alt="Best of both worlds" title="Best of both worlds">
+    </a>
+    <a tabindex="-1" href="#best-of-both-worlds-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="big-fish" class="landscape">
+    <a tabindex="-1" href="#big-fish" class="image">
+      <img loading="lazy" width="961" height="649" src="img/john-margolies/Big fish.jpg" alt="Big fish" title="Big fish">
+    </a>
+    <a tabindex="-1" href="#big-fish-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="budget-knight" class="landscape">
+    <a tabindex="-1" href="#budget-knight" class="image">
+      <img loading="lazy" width="993" height="673" src="img/john-margolies/Budget knight.jpg" alt="Budget knight" title="Budget knight">
+    </a>
+    <a tabindex="-1" href="#budget-knight-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="buffalo" class="landscape">
+    <a tabindex="-1" href="#buffalo" class="image">
+      <img loading="lazy" width="990" height="659" src="img/john-margolies/Buffalo.jpg" alt="Buffalo" title="Buffalo">
+    </a>
+    <a tabindex="-1" href="#buffalo-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="car-wash" class="portrait">
+    <a tabindex="-1" href="#car-wash" class="image">
+      <img loading="lazy" width="672" height="985" src="img/john-margolies/Car wash.jpg" alt="Car wash" title="Car wash">
+    </a>
+    <a tabindex="-1" href="#car-wash-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="censored-king-kong" class="portrait">
+    <a tabindex="-1" href="#censored-king-kong" class="image">
+      <img loading="lazy" width="649" height="948" src="img/john-margolies/Censored King Kong.jpg" alt="Censored King Kong" title="Censored King Kong">
+    </a>
+    <a tabindex="-1" href="#censored-king-kong-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="chicken-sign" class="portrait">
+    <a tabindex="-1" href="#chicken-sign" class="image">
+      <img loading="lazy" width="662" height="961" src="img/john-margolies/Chicken sign.jpg" alt="Chicken sign" title="Chicken sign">
+    </a>
+    <a tabindex="-1" href="#chicken-sign-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="concert-venue" class="landscape">
+    <a tabindex="-1" href="#concert-venue" class="image">
+      <img loading="lazy" width="950" height="639" src="img/john-margolies/Concert venue.jpg" alt="Concert venue" title="Concert venue">
+    </a>
+    <a tabindex="-1" href="#concert-venue-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="concrete-teepees" class="landscape">
+    <a tabindex="-1" href="#concrete-teepees" class="image">
+      <img loading="lazy" width="992" height="675" src="img/john-margolies/Concrete teepees.jpg" alt="Concrete teepees" title="Concrete teepees">
+    </a>
+    <a tabindex="-1" href="#concrete-teepees-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="dinosaur-village" class="landscape">
+    <a tabindex="-1" href="#dinosaur-village" class="image">
+      <img loading="lazy" width="977" height="661" src="img/john-margolies/Dinosaur village.jpg" alt="Dinosaur village" title="Dinosaur village">
+    </a>
+    <a tabindex="-1" href="#dinosaur-village-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="eye" class="landscape">
+    <a tabindex="-1" href="#eye" class="image">
+      <img loading="lazy" width="940" height="640" src="img/john-margolies/Eye.jpg" alt="Eye" title="Eye">
+    </a>
+    <a tabindex="-1" href="#eye-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="flamingo" class="landscape">
+    <a tabindex="-1" href="#flamingo" class="image">
+      <img loading="lazy" width="965" height="653" src="img/john-margolies/Flamingo.jpg" alt="Flamingo" title="Flamingo">
+    </a>
+    <a tabindex="-1" href="#flamingo-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="fox-tower" class="portrait">
+    <a tabindex="-1" href="#fox-tower" class="image">
+      <img loading="lazy" width="652" height="976" src="img/john-margolies/Fox tower.jpg" alt="Fox tower" title="Fox tower">
+    </a>
+    <a tabindex="-1" href="#fox-tower-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="hat-and-boots" class="landscape">
+    <a tabindex="-1" href="#hat-and-boots" class="image">
+      <img loading="lazy" width="984" height="664" src="img/john-margolies/Hat and boots.jpg" alt="Hat and boots" title="Hat and boots">
+    </a>
+    <a tabindex="-1" href="#hat-and-boots-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="hoot-owl-cafe" class="landscape">
+    <a tabindex="-1" href="#hoot-owl-cafe" class="image">
+      <img loading="lazy" width="1001" height="680" src="img/john-margolies/Hoot owl cafe.jpg" alt="Hoot owl cafe" title="Hoot owl cafe">
+    </a>
+    <a tabindex="-1" href="#hoot-owl-cafe-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="ko-ko-mo" class="landscape">
+    <a tabindex="-1" href="#ko-ko-mo" class="image">
+      <img loading="lazy" width="968" height="656" src="img/john-margolies/Ko ko mo.jpg" alt="Ko ko mo" title="Ko ko mo">
+    </a>
+    <a tabindex="-1" href="#ko-ko-mo-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="loch-ness-auto-shop" class="landscape">
+    <a tabindex="-1" href="#loch-ness-auto-shop" class="image">
+      <img loading="lazy" width="1000" height="672" src="img/john-margolies/Loch Ness auto shop.jpg" alt="Loch Ness auto shop" title="Loch Ness auto shop">
+    </a>
+    <a tabindex="-1" href="#loch-ness-auto-shop-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="motel" class="landscape">
+    <a tabindex="-1" href="#motel" class="image">
+      <img loading="lazy" width="996" height="675" src="img/john-margolies/Motel.jpg" alt="Motel" title="Motel">
+    </a>
+    <a tabindex="-1" href="#motel-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="moulin-vert" class="landscape">
+    <a tabindex="-1" href="#moulin-vert" class="image">
+      <img loading="lazy" width="975" height="656" src="img/john-margolies/Moulin Vert.jpg" alt="Moulin Vert" title="Moulin Vert">
+    </a>
+    <a tabindex="-1" href="#moulin-vert-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="neon-couch" class="landscape">
+    <a tabindex="-1" href="#neon-couch" class="image">
+      <img loading="lazy" width="984" height="664" src="img/john-margolies/Neon couch.jpg" alt="Neon couch" title="Neon couch">
+    </a>
+    <a tabindex="-1" href="#neon-couch-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="neon-sign" class="portrait">
+    <a tabindex="-1" href="#neon-sign" class="image">
+      <img loading="lazy" width="654" height="970" src="img/john-margolies/Neon sign.jpg" alt="Neon sign" title="Neon sign">
+    </a>
+    <a tabindex="-1" href="#neon-sign-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="psa" class="landscape">
+    <a tabindex="-1" href="#psa" class="image">
+      <img loading="lazy" width="956" height="652" src="img/john-margolies/PSA.jpg" alt="PSA" title="PSA">
+    </a>
+    <a tabindex="-1" href="#psa-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="peach" class="portrait">
+    <a tabindex="-1" href="#peach" class="image">
+      <img loading="lazy" width="667" height="976" src="img/john-margolies/Peach.jpg" alt="Peach" title="Peach">
+    </a>
+    <a tabindex="-1" href="#peach-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="red-rooster-sign" class="portrait">
+    <a tabindex="-1" href="#red-rooster-sign" class="image">
+      <img loading="lazy" width="693" height="1000" src="img/john-margolies/Red rooster sign.jpg" alt="Red rooster sign" title="Red rooster sign">
+    </a>
+    <a tabindex="-1" href="#red-rooster-sign-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="roadside-art" class="landscape">
+    <a tabindex="-1" href="#roadside-art" class="image">
+      <img loading="lazy" width="980" height="657" src="img/john-margolies/Roadside art.jpg" alt="Roadside art" title="Roadside art">
+    </a>
+    <a tabindex="-1" href="#roadside-art-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="robot" class="portrait">
+    <a tabindex="-1" href="#robot" class="image">
+      <img loading="lazy" width="666" height="976" src="img/john-margolies/Robot.jpg" alt="Robot" title="Robot">
+    </a>
+    <a tabindex="-1" href="#robot-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="teapot-cabaret" class="landscape">
+    <a tabindex="-1" href="#teapot-cabaret" class="image">
+      <img loading="lazy" width="970" height="648" src="img/john-margolies/Teapot cabaret.jpg" alt="Teapot cabaret" title="Teapot cabaret">
+    </a>
+    <a tabindex="-1" href="#teapot-cabaret-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="trading-post" class="landscape">
+    <a tabindex="-1" href="#trading-post" class="image">
+      <img loading="lazy" width="992" height="642" src="img/john-margolies/Trading post.jpg" alt="Trading post" title="Trading post">
+    </a>
+    <a tabindex="-1" href="#trading-post-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="whale-garage" class="landscape">
+    <a tabindex="-1" href="#whale-garage" class="image">
+      <img loading="lazy" width="978" height="663" src="img/john-margolies/Whale garage.jpg" alt="Whale garage" title="Whale garage">
+    </a>
+    <a tabindex="-1" href="#whale-garage-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="white-rooster-sign" class="portrait">
+    <a tabindex="-1" href="#white-rooster-sign" class="image">
+      <img loading="lazy" width="657" height="963" src="img/john-margolies/White rooster sign.jpg" alt="White rooster sign" title="White rooster sign">
+    </a>
+    <a tabindex="-1" href="#white-rooster-sign-thumb" class="close" ></a>
+  </figure>
+             
+    </div> 
+  </main>
   <footer>
-    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet<a> was generated on December 5, 2021  </footer>
-  
-  <a id="a-classic" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="980" height="665" src="img/A classic.jpg" alt="A classic" title="A classic">
-  </a>
-  
-  <a id="a-taste-of-italy" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="661" height="974" src="img/A taste of Italy.jpg" alt="A taste of Italy" title="A taste of Italy">
-  </a>
-  
-  <a id="apple-pie-exit" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="983" height="668" src="img/Apple pie exit.jpg" alt="Apple pie exit" title="Apple pie exit">
-  </a>
-  
-  <a id="aztec-motel" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="966" height="640" src="img/Aztec motel.jpg" alt="Aztec motel" title="Aztec motel">
-  </a>
-  
-  <a id="ballroom-entrance" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="973" height="656" src="img/Ballroom entrance.jpg" alt="Ballroom entrance" title="Ballroom entrance">
-  </a>
-  
-  <a id="best-of-both-worlds" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="977" height="656" src="img/Best of both worlds.jpg" alt="Best of both worlds" title="Best of both worlds">
-  </a>
-  
-  <a id="big-fish" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="961" height="649" src="img/Big fish.jpg" alt="Big fish" title="Big fish">
-  </a>
-  
-  <a id="budget-knight" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="993" height="673" src="img/Budget knight.jpg" alt="Budget knight" title="Budget knight">
-  </a>
-  
-  <a id="buffalo" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="990" height="659" src="img/Buffalo.jpg" alt="Buffalo" title="Buffalo">
-  </a>
-  
-  <a id="car-wash" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="672" height="985" src="img/Car wash.jpg" alt="Car wash" title="Car wash">
-  </a>
-  
-  <a id="censored-king-kong" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="649" height="948" src="img/Censored King Kong.jpg" alt="Censored King Kong" title="Censored King Kong">
-  </a>
-  
-  <a id="chicken-sign" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="662" height="961" src="img/Chicken sign.jpg" alt="Chicken sign" title="Chicken sign">
-  </a>
-  
-  <a id="concert-venue" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="950" height="639" src="img/Concert venue.jpg" alt="Concert venue" title="Concert venue">
-  </a>
-  
-  <a id="concrete-teepees" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="992" height="675" src="img/Concrete teepees.jpg" alt="Concrete teepees" title="Concrete teepees">
-  </a>
-  
-  <a id="dinosaur-village" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="977" height="661" src="img/Dinosaur village.jpg" alt="Dinosaur village" title="Dinosaur village">
-  </a>
-  
-  <a id="eye" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="940" height="640" src="img/Eye.jpg" alt="Eye" title="Eye">
-  </a>
-  
-  <a id="flamingo" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="965" height="653" src="img/Flamingo.jpg" alt="Flamingo" title="Flamingo">
-  </a>
-  
-  <a id="fox-tower" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="652" height="976" src="img/Fox tower.jpg" alt="Fox tower" title="Fox tower">
-  </a>
-  
-  <a id="hat-and-boots" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="984" height="664" src="img/Hat and boots.jpg" alt="Hat and boots" title="Hat and boots">
-  </a>
-  
-  <a id="hoot-owl-cafe" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="1001" height="680" src="img/Hoot owl cafe.jpg" alt="Hoot owl cafe" title="Hoot owl cafe">
-  </a>
-  
-  <a id="ko-ko-mo" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="968" height="656" src="img/Ko ko mo.jpg" alt="Ko ko mo" title="Ko ko mo">
-  </a>
-  
-  <a id="loch-ness-auto-shop" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="1000" height="672" src="img/Loch Ness auto shop.jpg" alt="Loch Ness auto shop" title="Loch Ness auto shop">
-  </a>
-  
-  <a id="motel" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="996" height="675" src="img/Motel.jpg" alt="Motel" title="Motel">
-  </a>
-  
-  <a id="moulin-vert" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="975" height="656" src="img/Moulin Vert.jpg" alt="Moulin Vert" title="Moulin Vert">
-  </a>
-  
-  <a id="neon-couch" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="984" height="664" src="img/Neon couch.jpg" alt="Neon couch" title="Neon couch">
-  </a>
-  
-  <a id="neon-sign" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="654" height="970" src="img/Neon sign.jpg" alt="Neon sign" title="Neon sign">
-  </a>
-  
-  <a id="psa" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="956" height="652" src="img/PSA.jpg" alt="PSA" title="PSA">
-  </a>
-  
-  <a id="peach" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="667" height="976" src="img/Peach.jpg" alt="Peach" title="Peach">
-  </a>
-  
-  <a id="red-rooster-sign" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="693" height="1000" src="img/Red rooster sign.jpg" alt="Red rooster sign" title="Red rooster sign">
-  </a>
-  
-  <a id="roadside-art" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="980" height="657" src="img/Roadside art.jpg" alt="Roadside art" title="Roadside art">
-  </a>
-  
-  <a id="robot" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="666" height="976" src="img/Robot.jpg" alt="Robot" title="Robot">
-  </a>
-  
-  <a id="teapot-cabaret" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="970" height="648" src="img/Teapot cabaret.jpg" alt="Teapot cabaret" title="Teapot cabaret">
-  </a>
-  
-  <a id="trading-post" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="992" height="642" src="img/Trading post.jpg" alt="Trading post" title="Trading post">
-  </a>
-  
-  <a id="whale-garage" class="lightbox landscape" href="#_">
-    <img loading="lazy" width="978" height="663" src="img/Whale garage.jpg" alt="Whale garage" title="Whale garage">
-  </a>
-  
-  <a id="white-rooster-sign" class="lightbox portrait" href="#_">
-    <img loading="lazy" width="657" height="963" src="img/White rooster sign.jpg" alt="White rooster sign" title="White rooster sign">
-  </a>
-  </body>
+    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet</a> was generated on December 17, 2021  </footer>
+  <script>
+  // esc key to close
+    document.addEventListener (
+      "keydown", (e) => {
+        if (e.keyCode == 27) {
+          document.activeElement.querySelector('.close').click();
+        }
+      }, false
+    );
+  </script>
+</body>
 </html>
