@@ -29,15 +29,15 @@ $totimg = count($a_img);
 
 for($x = 0; $x < $totimg; $x++) {
   
+  $file_name = pathinfo($a_img[$x], PATHINFO_FILENAME); 
+  $file_slug = create_slug($file_name);
+  
   $size = getimagesize($img_folder.'/'.$a_img[$x]);
   $width = $size[0];
   $height = $size[1];
   $aspect = $height / $width;
   if ($aspect >= 1) $orientation = 'portrait';
   else $orientation = 'landscape';
-
-  $file_name = pathinfo($a_img[$x], PATHINFO_FILENAME); 
-  $file_slug = create_slug($file_name);
 
   $grid .= '
   <figure class="'.$orientation.'">
@@ -65,6 +65,7 @@ for($x = 0; $x < $totimg; $x++) {
   <meta name="viewport" content="width=device-width">     
   <title><?php echo $site_title; ?></title>
   <meta name="description" content="<?php echo $site_desc; ?>">
+  <meta name="twitter:card" content="summary">
   <style type="text/css">
     <?php echo file_get_contents($site_style); ?>
   </style>

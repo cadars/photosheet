@@ -21,7 +21,7 @@ body {
 }
 
 body {
-  font: var(--textsize) / 1.4 system-ui, sans-serif;
+  font: var(--textsize) / 1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Noto, Roboto, Oxygen-Sans, Cantarell, 'Helvetica Neue', Arial, sans-serif;
   color: var(--textcolor);
   background: var(--backcolor);
   padding: var(--margin) var(--margin) 0;
@@ -171,7 +171,7 @@ input#x-large:checked ~ .grid {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .grid figure a:focus {
@@ -292,9 +292,9 @@ a.close {
   top: 0;
   right: 0;
   z-index: 20;
-  opacity: 0.4;
-  width: 8em;
-  height: 8em;
+  opacity: 0.3;
+  width: 10vmax;
+  height: 10vmax;
 }
 
 a.close:focus-visible {
@@ -305,10 +305,10 @@ a.close:before,
 a.close:after {
   pointer-events: none;
   position: absolute;
-  top: 2em;
-  right: 1.8em;
+  top: 6vmin;
+  right: 5vmin;
   content: "";
-  width: 1.1em;
+  width: 1.2em;
   border: 1px solid;
   display: block;
 }
