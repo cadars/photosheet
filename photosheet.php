@@ -23,7 +23,7 @@ while($img_file = readdir($dimg)) {
   {$a_img[] = $img_file;} 
 }
 
-if(is_array($a_img)) sort($a_img);
+if(is_array($a_img)) sort($a_img, SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL);
 
 $totimg = count($a_img);
 
