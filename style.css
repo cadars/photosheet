@@ -147,7 +147,7 @@ input#x-large:checked ~ .grid {
 .grid a {
   display: block;
   position: relative;
-  scroll-margin-top: 22vh;
+  scroll-margin: 22vh 0;
 }
 
 .grid a img {
