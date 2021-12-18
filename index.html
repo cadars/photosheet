@@ -66,84 +66,12 @@ img {
   user-select: none;
 }
 
-/* Thumbnail sizes */
-
-input {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  direction: rtl;
-}
-
-label {
-  user-select: none;
-  cursor: pointer;
-  opacity: 0.5;
-  padding: 0.05em 0.45em;
-  margin: -0.05em 0 0 0.2em;
-  float: right;
-  display: none;
-}
-
-label:hover,
-input:focus-visible + label {
-  outline: 1px solid;
-  border-radius: 1px;
-}
-
-input:checked + label {
-  opacity: 1;
-  font-weight: bold;
-}
-
-/* Show only on bigger screens */
-@media (min-width: 820px) {
-  label {
-    display: inline-block;
-  }
-  h1 {
-    display: inline-block;
-    float: left;
-    width: calc(100% - 14ch);
-  }
-}
-
-input#small:checked ~ .grid {
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(calc(var(--thumbsize) / 2), 1fr)
-  );
-  grid-gap: var(--margin);
-}
-
-input#medium:checked ~ .grid {
-  grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
-}
-
-input#large:checked ~ .grid {
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(calc(var(--thumbsize) * 1.5), 1fr)
-  );
-  grid-gap: calc(var(--margin) * 1.5);
-}
-
-input#x-large:checked ~ .grid {
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(calc(var(--thumbsize) * 2), 1fr)
-  );
-  grid-gap: calc(var(--margin) * 1.5);
-}
-
 /* -- Images grid -- */
 
 .grid {
   clear: both;
   display: grid;
-  grid-gap: calc(var(--margin) * 1.5) var(--margin);
+  grid-gap: var(--margin);
   grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
   grid-auto-flow: dense;
   padding-top: calc(var(--margin) * 2);
@@ -193,6 +121,68 @@ input#x-large:checked ~ .grid {
 .grid figure a:hover + figcaption,
 .grid figure a:focus + figcaption {
   opacity: 1;
+}
+
+/* Thumbnail sizes */
+
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  direction: rtl;
+}
+
+label {
+  user-select: none;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 0.05em 0.45em;
+  margin: -0.05em 0 0 0.2em;
+  float: right;
+  display: none;
+}
+
+label:hover,
+input:focus-visible + label {
+  outline: 1px solid;
+  border-radius: 1px;
+}
+
+input:checked + label {
+  opacity: 1;
+  font-weight: bold;
+}
+
+/* Show only on bigger screens */
+@media (min-width: 820px) {
+  label {
+    display: inline-block;
+  }
+  h1 {
+    display: inline-block;
+    float: left;
+    width: calc(100% - 14ch);
+  }
+}
+
+input#small:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--thumbsize) / 2), 1fr));
+}
+
+input#medium:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
+}
+
+input#large:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--thumbsize) * 1.5), 1fr));
+  grid-gap: calc(var(--margin) * 1.5);
+}
+
+input#x-large:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--thumbsize) * 2), 1fr));
+  grid-gap: calc(var(--margin) * 1.5);
 }
 
 /* -- Lightbox -- */
@@ -380,18 +370,18 @@ a.close:hover {
     <figcaption>A classic</figcaption>
   </figure>
   
-  <figure class="portrait">
-    <a href="#a-taste-of-italy" id="a-taste-of-italy-thumb">
-      <img loading="lazy" width="661" height="974" src="img/john-margolies/A taste of Italy.jpg" alt="A taste of Italy">
-    </a>
-    <figcaption>A taste of Italy</figcaption>
-  </figure>
-  
   <figure class="landscape">
     <a href="#apple-pie-exit" id="apple-pie-exit-thumb">
       <img loading="lazy" width="983" height="668" src="img/john-margolies/Apple pie exit.jpg" alt="Apple pie exit">
     </a>
     <figcaption>Apple pie exit</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#a-taste-of-italy" id="a-taste-of-italy-thumb">
+      <img loading="lazy" width="661" height="974" src="img/john-margolies/A taste of Italy.jpg" alt="A taste of Italy">
+    </a>
+    <figcaption>A taste of Italy</figcaption>
   </figure>
   
   <figure class="landscape">
@@ -555,18 +545,18 @@ a.close:hover {
     <figcaption>Neon sign</figcaption>
   </figure>
   
-  <figure class="landscape">
-    <a href="#psa" id="psa-thumb">
-      <img loading="lazy" width="956" height="652" src="img/john-margolies/PSA.jpg" alt="PSA">
-    </a>
-    <figcaption>PSA</figcaption>
-  </figure>
-  
   <figure class="portrait">
     <a href="#peach" id="peach-thumb">
       <img loading="lazy" width="667" height="976" src="img/john-margolies/Peach.jpg" alt="Peach">
     </a>
     <figcaption>Peach</figcaption>
+  </figure>
+  
+  <figure class="landscape">
+    <a href="#psa" id="psa-thumb">
+      <img loading="lazy" width="956" height="652" src="img/john-margolies/PSA.jpg" alt="PSA">
+    </a>
+    <figcaption>PSA</figcaption>
   </figure>
   
   <figure class="portrait">
@@ -627,18 +617,18 @@ a.close:hover {
     <a tabindex="-1" href="#a-classic-thumb" class="close" ></a>
   </figure>
   
-  <figure tabindex="0" id="a-taste-of-italy" class="portrait">
-    <a tabindex="-1" href="#a-taste-of-italy" class="image">
-      <img loading="lazy" width="661" height="974" src="img/john-margolies/A taste of Italy.jpg" alt="A taste of Italy" title="A taste of Italy">
-    </a>
-    <a tabindex="-1" href="#a-taste-of-italy-thumb" class="close" ></a>
-  </figure>
-  
   <figure tabindex="0" id="apple-pie-exit" class="landscape">
     <a tabindex="-1" href="#apple-pie-exit" class="image">
       <img loading="lazy" width="983" height="668" src="img/john-margolies/Apple pie exit.jpg" alt="Apple pie exit" title="Apple pie exit">
     </a>
     <a tabindex="-1" href="#apple-pie-exit-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="a-taste-of-italy" class="portrait">
+    <a tabindex="-1" href="#a-taste-of-italy" class="image">
+      <img loading="lazy" width="661" height="974" src="img/john-margolies/A taste of Italy.jpg" alt="A taste of Italy" title="A taste of Italy">
+    </a>
+    <a tabindex="-1" href="#a-taste-of-italy-thumb" class="close" ></a>
   </figure>
   
   <figure tabindex="0" id="aztec-motel" class="landscape">
@@ -802,18 +792,18 @@ a.close:hover {
     <a tabindex="-1" href="#neon-sign-thumb" class="close" ></a>
   </figure>
   
-  <figure tabindex="0" id="psa" class="landscape">
-    <a tabindex="-1" href="#psa" class="image">
-      <img loading="lazy" width="956" height="652" src="img/john-margolies/PSA.jpg" alt="PSA" title="PSA">
-    </a>
-    <a tabindex="-1" href="#psa-thumb" class="close" ></a>
-  </figure>
-  
   <figure tabindex="0" id="peach" class="portrait">
     <a tabindex="-1" href="#peach" class="image">
       <img loading="lazy" width="667" height="976" src="img/john-margolies/Peach.jpg" alt="Peach" title="Peach">
     </a>
     <a tabindex="-1" href="#peach-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="psa" class="landscape">
+    <a tabindex="-1" href="#psa" class="image">
+      <img loading="lazy" width="956" height="652" src="img/john-margolies/PSA.jpg" alt="PSA" title="PSA">
+    </a>
+    <a tabindex="-1" href="#psa-thumb" class="close" ></a>
   </figure>
   
   <figure tabindex="0" id="red-rooster-sign" class="portrait">

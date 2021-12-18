@@ -57,84 +57,12 @@ img {
   user-select: none;
 }
 
-/* Thumbnail sizes */
-
-input {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  direction: rtl;
-}
-
-label {
-  user-select: none;
-  cursor: pointer;
-  opacity: 0.5;
-  padding: 0.05em 0.45em;
-  margin: -0.05em 0 0 0.2em;
-  float: right;
-  display: none;
-}
-
-label:hover,
-input:focus-visible + label {
-  outline: 1px solid;
-  border-radius: 1px;
-}
-
-input:checked + label {
-  opacity: 1;
-  font-weight: bold;
-}
-
-/* Show only on bigger screens */
-@media (min-width: 820px) {
-  label {
-    display: inline-block;
-  }
-  h1 {
-    display: inline-block;
-    float: left;
-    width: calc(100% - 14ch);
-  }
-}
-
-input#small:checked ~ .grid {
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(calc(var(--thumbsize) / 2), 1fr)
-  );
-  grid-gap: var(--margin);
-}
-
-input#medium:checked ~ .grid {
-  grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
-}
-
-input#large:checked ~ .grid {
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(calc(var(--thumbsize) * 1.5), 1fr)
-  );
-  grid-gap: calc(var(--margin) * 1.5);
-}
-
-input#x-large:checked ~ .grid {
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(calc(var(--thumbsize) * 2), 1fr)
-  );
-  grid-gap: calc(var(--margin) * 1.5);
-}
-
 /* -- Images grid -- */
 
 .grid {
   clear: both;
   display: grid;
-  grid-gap: calc(var(--margin) * 1.5) var(--margin);
+  grid-gap: var(--margin);
   grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
   grid-auto-flow: dense;
   padding-top: calc(var(--margin) * 2);
@@ -184,6 +112,68 @@ input#x-large:checked ~ .grid {
 .grid figure a:hover + figcaption,
 .grid figure a:focus + figcaption {
   opacity: 1;
+}
+
+/* Thumbnail sizes */
+
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  direction: rtl;
+}
+
+label {
+  user-select: none;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 0.05em 0.45em;
+  margin: -0.05em 0 0 0.2em;
+  float: right;
+  display: none;
+}
+
+label:hover,
+input:focus-visible + label {
+  outline: 1px solid;
+  border-radius: 1px;
+}
+
+input:checked + label {
+  opacity: 1;
+  font-weight: bold;
+}
+
+/* Show only on bigger screens */
+@media (min-width: 820px) {
+  label {
+    display: inline-block;
+  }
+  h1 {
+    display: inline-block;
+    float: left;
+    width: calc(100% - 14ch);
+  }
+}
+
+input#small:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--thumbsize) / 2), 1fr));
+}
+
+input#medium:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
+}
+
+input#large:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--thumbsize) * 1.5), 1fr));
+  grid-gap: calc(var(--margin) * 1.5);
+}
+
+input#x-large:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--thumbsize) * 2), 1fr));
+  grid-gap: calc(var(--margin) * 1.5);
 }
 
 /* -- Lightbox -- */
