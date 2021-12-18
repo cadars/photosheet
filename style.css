@@ -136,7 +136,7 @@ label {
 }
 
 label:hover,
-input:focus-visible + label {
+input:focus + label {
   outline: 1px solid;
   border-radius: 1px;
 }
@@ -220,7 +220,7 @@ input#x-large:checked ~ .grid {
   z-index: 1;
 }
 
-.lightbox figure:focus-visible {
+.lightbox figure:focus {
   outline: none;
 }
 
