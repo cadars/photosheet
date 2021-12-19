@@ -298,8 +298,8 @@ input#x-large:checked ~ .grid {
   text-shadow: 1px 1px 2px var(--backcolor);
   z-index: 3;
   position: fixed;
-  bottom: 4vmin;
-  right: 5vmin;
+  bottom: 1em;
+  right: 1.25em;
 }
 
 .lightbox:focus-within .counter::before {
@@ -327,10 +327,10 @@ a.close::before,
 a.close::after {
   pointer-events: none;
   position: absolute;
-  top: 6vmin;
-  right: 5vmin;
+  top: 1.75em;
+  right: 1.25em;
   content: "";
-  width: 1.2em;
+  width: 1.3em;
   border: 1px solid;
   display: block;
 }
