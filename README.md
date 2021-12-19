@@ -14,10 +14,10 @@ php photosheet.php > index.html
   
   <br>
   
-  - Navigate within the lightbox on tap, click, swipe, scroll, with <kbd>Tab</kbd>, or the <kbd>&larr;</kbd> <kbd>&rarr;</kbd> keys
+  - Navigate within the lightbox on tap/click, swipe/scroll, on focus with <kbd>Tab</kbd>, or with the <kbd>&larr;</kbd> <kbd>&rarr;</kbd> keys
   - Images should be a reasonable size and compressed beforehand, as no thumbnails are generated
   - `figure.landscape` and `figure.portrait` are available for styling
-  - Javascript is used to close the lightbox with <kbd>Esc</kbd>
+  - Javascript is used only to close the lightbox with <kbd>Esc</kbd>
 
 
   Default variables in `photosheet.php`:
