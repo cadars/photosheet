@@ -85,7 +85,8 @@ for($x = 0; $x < $totimg; $x++) {
       <?php echo $grid; ?>
     </div>
     <div class="lightbox">
-      <?php echo $lightbox; ?>           
+      <?php echo $lightbox; ?>   
+      <div class="counter"></div>        
     </div> 
   </main>
   <footer>

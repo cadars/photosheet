@@ -95,7 +95,7 @@ img {
   object-fit: contain;
 }
 
-.grid a:before {
+.grid a::before {
   content: "";
   display: block;
   padding-top: 100%;
@@ -139,7 +139,7 @@ label {
   cursor: pointer;
   opacity: 0.5;
   padding: 0.05em 0.45em;
-  margin: -0.05em 0 0 0.2em;
+  margin: -0.05em 0 0 0.5em;
   float: right;
   display: none;
 }
@@ -163,7 +163,7 @@ input:checked + label {
   h1 {
     display: inline-block;
     float: left;
-    width: calc(100% - 14ch);
+    width: calc(100% - 20ch);
   }
 }
 
@@ -254,30 +254,65 @@ input#x-large:checked ~ .grid {
   transition: 0.35s opacity ease-out;
 }
 
-/* Prev / Next */
+/* -- Prev / Next -- */
 
-.lightbox figure a.image:before,
-.lightbox figure a.image:after {
+.lightbox figure a.image::before,
+.lightbox figure a.image::after {
   content: "";
   display: block;
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 50vw;
+  width: 33vw;
   z-index: 3;
 }
 
-.lightbox figure a.image:before {
-  left: -50vw;
+.lightbox figure a.image::before {
+  cursor: e-resize;
+  left: -33vw;
 }
 
-.lightbox figure a.image:after {
-  right: -50vw;
+.lightbox figure a.image::after {
+  cursor: w-resize;
+  right: -33vw;
 }
 
-.lightbox figure:first-of-type a.image:before,
-.lightbox figure:last-of-type a.image:after {
+.lightbox figure:first-of-type a.image::before,
+.lightbox figure:last-of-type a.image::after {
   display: none;
+}
+
+/* -- Counter -- */
+
+.lightbox {
+  counter-reset: currentStep 0 remainder 0 totalStep 0;
+}
+
+.lightbox figure {
+  counter-increment: totalStep;
+}
+
+.lightbox figure::before {
+  content: "";
+  counter-increment: currentStep;
+}
+
+.lightbox figure:target ~ figure::before {
+  counter-increment: remainder;
+}
+
+.counter {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.3;
+  text-shadow: 1px 1px 2px var(--backcolor);
+  z-index: 3;
+  position: fixed;
+  bottom: 4vmin;
+  right: 5vmin;
+}
+
+.lightbox:focus-within .counter::before {
+  content: counter(currentStep) " / " counter(totalStep);
 }
 
 /* -- Close button -- */
@@ -297,8 +332,8 @@ a.close:focus-visible {
   outline: 0;
 }
 
-a.close:before,
-a.close:after {
+a.close::before,
+a.close::after {
   pointer-events: none;
   position: absolute;
   top: 6vmin;
@@ -309,11 +344,11 @@ a.close:after {
   display: block;
 }
 
-a.close:before {
+a.close::before {
   transform: rotate(45deg);
 }
 
-a.close:after {
+a.close::after {
   transform: rotate(-45deg);
 }
 
@@ -332,7 +367,7 @@ a.close:hover {
   }
 }
 
-.lightbox figure:before {
+.lightbox figure::before {
   content: "";
   height: 1.5em;
   width: 1.5em;
@@ -851,11 +886,12 @@ a.close:hover {
     </a>
     <a tabindex="-1" href="#white-rooster-sign-thumb" class="close" ></a>
   </figure>
-             
+     
+      <div class="counter"></div>        
     </div> 
   </main>
   <footer>
-    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet</a> was generated on December 18, 2021  </footer>
+    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet</a> was generated on December 19, 2021  </footer>
   <script>
   // esc key to close
     document.addEventListener (
