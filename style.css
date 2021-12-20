@@ -102,6 +102,7 @@ img {
   opacity: 0.4;
 }
 
+.grid figure a:target,
 .grid figure a:focus {
   outline: 0 none;
   border-radius: 1px;
