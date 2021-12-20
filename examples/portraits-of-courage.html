@@ -1,0 +1,1403 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">     
+  <title>Portraits of Courage</title>
+  <meta name="description" content="by Coward George W. Bush">
+  <meta property="og:title" content="Portraits of Courage">
+  <meta property="og:description" content="by Coward George W. Bush">
+  <meta name="twitter:card" content="summary">
+  <style type="text/css">
+    html {
+  --textsize: 16px;
+  --textcolor: #000;
+  --backcolor: #fff;
+
+  --margin: calc(0.8em + 1vw);
+  --thumbsize: 156px; /* size M */
+  --slide-transition: auto; /* smooth or auto */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font: var(--textsize) / 1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Noto, Roboto, Oxygen-Sans, Cantarell, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--textcolor);
+  background: var(--backcolor);
+  padding: var(--margin) var(--margin) 0;
+  overscroll-behavior: contain;
+  -webkit-tap-highlight-color: transparent;
+}
+
+footer {
+  position: sticky;
+  top: 100vh;
+  padding: calc(var(--margin) * 2.5) 0 var(--margin) 0;
+  font-size: 0.85em;
+  opacity: 0.4;
+}
+
+h1 {
+  font-size: 1em;
+}
+
+h1 span {
+  font-weight: normal;
+  display: inline-block;
+}
+
+a {
+  color: currentColor;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+/* -- Images grid -- */
+
+.grid {
+  clear: both;
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fill, minmax(var(--thumbsize), 1fr));
+  grid-gap: calc(var(--margin) * 1.33) var(--margin);
+  padding-top: calc(var(--margin) * 2);
+}
+
+.grid figure {
+  position: relative;
+}
+
+.grid a {
+  display: block;
+  position: relative;
+  scroll-margin: 20vh 0;
+}
+
+.grid a img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.grid a::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.grid figcaption {
+  font-size: 0.85em;
+  margin-top: calc(var(--margin) / 2);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.4;
+}
+
+.grid figure a:focus {
+  outline: 0 none;
+  border-radius: 1px;
+  box-shadow: 0 0 0 4px;
+  background: currentColor;
+}
+
+.grid figure a:hover + figcaption,
+.grid figure a:focus + figcaption {
+  opacity: 1;
+}
+
+/* Thumbnails S M L XL */
+
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  direction: rtl;
+}
+
+label {
+  user-select: none;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 0.05em 0.45em;
+  margin-top: -0.05em;
+  float: right;
+  display: none;
+}
+
+label:hover,
+input:focus + label {
+  opacity: 1;
+}
+
+input:focus + label,
+input:checked + label:hover {
+  outline: 1px solid;
+  border-radius: 1px;
+}
+
+input:checked + label {
+  opacity: 1;
+  font-weight: bold;
+}
+
+/* Show only on bigger screens */
+@media (min-width: 820px) {
+  label {
+    display: inline-block;
+  }
+  h1 {
+    display: inline-block;
+    float: left;
+    width: calc(100% - 20ch);
+  }
+}
+
+input#small:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--thumbsize) / 2), 1fr));
+  grid-gap: var(--margin);
+}
+
+input#large:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--thumbsize) * 1.5), 1fr));
+  grid-gap: calc(var(--margin) * 1.5);
+}
+
+input#x-large:checked ~ .grid {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--thumbsize) * 2), 1fr));
+  grid-gap: calc(var(--margin) * 1.5);
+}
+
+/* -- Lightbox -- */
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  right: 100vw;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior: contain;
+  z-index: 5;
+}
+
+.lightbox:focus-within {
+  right: 0; /* hello */
+}
+
+.lightbox:hover {
+  scroll-behavior: var(--slide-transition);
+}
+
+.lightbox figure {
+  background: var(--backcolor);
+  position: relative;
+  scroll-snap-align: center;
+  flex: none;
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+/* fix for #permalinks to work */
+.lightbox:not(:focus-within) figure:target {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.lightbox figure:focus {
+  outline: none;
+}
+
+.lightbox figure a.image {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.lightbox figure a.image img {
+  width: auto;
+  height: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  z-index: 2;
+  opacity: 0;
+}
+
+.lightbox:focus-within figure a.image img,
+.lightbox:not(:focus-within) figure:target a.image img {
+  opacity: 1;
+  transition: 0.35s opacity ease-out;
+}
+
+/* -- Prev / Next -- */
+
+.lightbox figure a.image::before,
+.lightbox figure a.image::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 33vw;
+  z-index: 3;
+}
+
+.lightbox figure a.image::before {
+  cursor: e-resize;
+  left: -33vw;
+}
+
+.lightbox figure a.image::after {
+  cursor: w-resize;
+  right: -33vw;
+}
+
+.lightbox figure:first-of-type a.image::before,
+.lightbox figure:last-of-type a.image::after {
+  display: none;
+}
+
+/* -- Counter -- */
+
+.lightbox {
+  counter-reset: currentStep 0 remainder 0 totalStep 0;
+}
+
+.lightbox figure {
+  counter-increment: totalStep;
+}
+
+.lightbox figure::before {
+  content: "";
+  counter-increment: currentStep;
+}
+
+.lightbox figure:target ~ figure::before {
+  counter-increment: remainder;
+}
+
+.counter {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.3;
+  text-shadow: 1px 1px 2px var(--backcolor);
+  z-index: 3;
+  position: fixed;
+  bottom: 1em;
+  right: 1.25em;
+}
+
+.lightbox:focus-within .counter::before {
+  content: counter(currentStep) " / " counter(totalStep);
+}
+
+/* -- Close button -- */
+
+a.close {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  z-index: 20;
+  opacity: 0.3;
+  width: 10vmax;
+  height: 10vmax;
+}
+
+a.close:focus-visible {
+  outline: 0;
+}
+
+a.close::before,
+a.close::after {
+  pointer-events: none;
+  position: absolute;
+  top: 1.75em;
+  right: 1.25em;
+  content: "";
+  width: 1.3em;
+  border: 1px solid;
+  display: block;
+}
+
+a.close::before {
+  transform: rotate(45deg);
+}
+
+a.close::after {
+  transform: rotate(-45deg);
+}
+
+a.close:hover {
+  opacity: 1;
+}
+
+/* -- Loading spinner -- */
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.lightbox figure::before {
+  content: "";
+  height: 1.5em;
+  width: 1.5em;
+  animation: spin 0.8s infinite linear;
+  border: 1px solid;
+  border-right-color: transparent;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  transform: translateX(-50%);
+  opacity: 0.25;
+}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Portraits of Courage <span>by Coward George W. Bush</span></h1>
+    <input type="radio" name="size" id="x-large">
+    <label for="x-large">XL</label>
+    <input type="radio" name="size" id="large">
+    <label for="large">L</label>
+    <input checked type="radio" name="size" id="medium">
+    <label for="medium">M</label>
+    <input type="radio" name="size" id="small">
+    <label for="small">S</label>
+    <div class="grid">
+      
+  <figure class="portrait">
+    <a href="#01-scott-alan-adams-sr" id="01-scott-alan-adams-sr-thumb">
+      <img loading="lazy" width="1459" height="2188" src="img/portraits-of-courage/01. Scott Alan Adams Sr..jpg" alt="01. Scott Alan Adams Sr.">
+    </a>
+    <figcaption>01. Scott Alan Adams Sr.</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#02-matthew-s-ayers" id="02-matthew-s-ayers-thumb">
+      <img loading="lazy" width="1600" height="1935" src="img/portraits-of-courage/02. Matthew S. Ayers.jpg" alt="02. Matthew S. Ayers">
+    </a>
+    <figcaption>02. Matthew S. Ayers</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#03-jae-barclay" id="03-jae-barclay-thumb">
+      <img loading="lazy" width="1437" height="2221" src="img/portraits-of-courage/03. Jae Barclay.jpg" alt="03. Jae Barclay">
+    </a>
+    <figcaption>03. Jae Barclay</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#04-sean-bennett" id="04-sean-bennett-thumb">
+      <img loading="lazy" width="1373" height="1775" src="img/portraits-of-courage/04. Sean Bennett.jpg" alt="04. Sean Bennett">
+    </a>
+    <figcaption>04. Sean Bennett</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#05-justin-bond" id="05-justin-bond-thumb">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/05. Justin Bond.jpg" alt="05. Justin Bond">
+    </a>
+    <figcaption>05. Justin Bond</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#06-thomas-brooks" id="06-thomas-brooks-thumb">
+      <img loading="lazy" width="1238" height="2499" src="img/portraits-of-courage/06. Thomas Brooks.jpg" alt="06. Thomas Brooks">
+    </a>
+    <figcaption>06. Thomas Brooks</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#07-timothy-brown" id="07-timothy-brown-thumb">
+      <img loading="lazy" width="1436" height="2197" src="img/portraits-of-courage/07. Timothy Brown.jpg" alt="07. Timothy Brown">
+    </a>
+    <figcaption>07. Timothy Brown</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#08-daniel-casara" id="08-daniel-casara-thumb">
+      <img loading="lazy" width="1518" height="1984" src="img/portraits-of-courage/08. Daniel Casara.jpg" alt="08. Daniel Casara">
+    </a>
+    <figcaption>08. Daniel Casara</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#09-bryce-franklin-cole" id="09-bryce-franklin-cole-thumb">
+      <img loading="lazy" width="1535" height="1922" src="img/portraits-of-courage/09. Bryce Franklin Cole.jpg" alt="09. Bryce Franklin Cole">
+    </a>
+    <figcaption>09. Bryce Franklin Cole</figcaption>
+  </figure>
+  
+  <figure class="landscape">
+    <a href="#10-zachariah-collet" id="10-zachariah-collet-thumb">
+      <img loading="lazy" width="1765" height="1755" src="img/portraits-of-courage/10. Zachariah Collet.jpg" alt="10. Zachariah Collet">
+    </a>
+    <figcaption>10. Zachariah Collet</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#11-justin-constantine" id="11-justin-constantine-thumb">
+      <img loading="lazy" width="1457" height="2192" src="img/portraits-of-courage/11. Justin Constantine.jpg" alt="11. Justin Constantine">
+    </a>
+    <figcaption>11. Justin Constantine</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#12-thomas-william-costello" id="12-thomas-william-costello-thumb">
+      <img loading="lazy" width="1530" height="2055" src="img/portraits-of-courage/12. Thomas William Costello.jpg" alt="12. Thomas William Costello">
+    </a>
+    <figcaption>12. Thomas William Costello</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#13-israel-del-toro-jr" id="13-israel-del-toro-jr-thumb">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/13. Israel Del Toro Jr..jpg" alt="13. Israel Del Toro Jr.">
+    </a>
+    <figcaption>13. Israel Del Toro Jr.</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#14-ben-dellinger" id="14-ben-dellinger-thumb">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/14. Ben Dellinger.jpg" alt="14. Ben Dellinger">
+    </a>
+    <figcaption>14. Ben Dellinger</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#15-chris-demars" id="15-chris-demars-thumb">
+      <img loading="lazy" width="1595" height="1995" src="img/portraits-of-courage/15. Chris Demars.jpg" alt="15. Chris Demars">
+    </a>
+    <figcaption>15. Chris Demars</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#16-matthew-dewitt" id="16-matthew-dewitt-thumb">
+      <img loading="lazy" width="1605" height="1955" src="img/portraits-of-courage/16. Matthew Dewitt.jpg" alt="16. Matthew Dewitt">
+    </a>
+    <figcaption>16. Matthew Dewitt</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#17-alvis-todd-domerese" id="17-alvis-todd-domerese-thumb">
+      <img loading="lazy" width="1486" height="2148" src="img/portraits-of-courage/17. Alvis “Todd” Domerese.jpg" alt="17. Alvis “Todd” Domerese">
+    </a>
+    <figcaption>17. Alvis “Todd” Domerese</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#18-brian-donarski" id="18-brian-donarski-thumb">
+      <img loading="lazy" width="1558" height="1881" src="img/portraits-of-courage/18. Brian Donarski.jpg" alt="18. Brian Donarski">
+    </a>
+    <figcaption>18. Brian Donarski</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#19-robert-dove" id="19-robert-dove-thumb">
+      <img loading="lazy" width="1526" height="2048" src="img/portraits-of-courage/19. Robert Dove.jpg" alt="19. Robert Dove">
+    </a>
+    <figcaption>19. Robert Dove</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#20-kenneth-michael-dwyer" id="20-kenneth-michael-dwyer-thumb">
+      <img loading="lazy" width="1545" height="1917" src="img/portraits-of-courage/20. Kenneth Michael Dwyer.jpg" alt="20. Kenneth Michael Dwyer">
+    </a>
+    <figcaption>20. Kenneth Michael Dwyer</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#21-jay-k-fain-jr" id="21-jay-k-fain-jr-thumb">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/21. Jay K. Fain Jr..jpg" alt="21. Jay K. Fain Jr.">
+    </a>
+    <figcaption>21. Jay K. Fain Jr.</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#23-daniel-gade" id="23-daniel-gade-thumb">
+      <img loading="lazy" width="1428" height="2235" src="img/portraits-of-courage/23. Daniel Gade.jpg" alt="23. Daniel Gade">
+    </a>
+    <figcaption>23. Daniel Gade</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#24-timothy-gaestel" id="24-timothy-gaestel-thumb">
+      <img loading="lazy" width="1545" height="2049" src="img/portraits-of-courage/24. Timothy Gaestel.jpg" alt="24. Timothy Gaestel">
+    </a>
+    <figcaption>24. Timothy Gaestel</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#25-jack-schumacher" id="25-jack-schumacher-thumb">
+      <img loading="lazy" width="1596" height="2001" src="img/portraits-of-courage/25. Jack Schumacher.jpg" alt="25. Jack Schumacher">
+    </a>
+    <figcaption>25. Jack Schumacher</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#26-william-j-ganem" id="26-william-j-ganem-thumb">
+      <img loading="lazy" width="1518" height="2009" src="img/portraits-of-courage/26. William J. Ganem.jpg" alt="26. William J. Ganem">
+    </a>
+    <figcaption>26. William J. Ganem</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#27-aalexander-glenn-camden" id="27-aalexander-glenn-camden-thumb">
+      <img loading="lazy" width="1530" height="1992" src="img/portraits-of-courage/27. Aalexander Glenn-Camden.jpg" alt="27. Aalexander Glenn-Camden">
+    </a>
+    <figcaption>27. Aalexander Glenn-Camden</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#28-chris-goehner" id="28-chris-goehner-thumb">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/28. Chris Goehner.jpg" alt="28. Chris Goehner">
+    </a>
+    <figcaption>28. Chris Goehner</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#29-david-haines" id="29-david-haines-thumb">
+      <img loading="lazy" width="1529" height="1904" src="img/portraits-of-courage/29. David Haines.jpg" alt="29. David Haines">
+    </a>
+    <figcaption>29. David Haines</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#30-andy-hatcher" id="30-andy-hatcher-thumb">
+      <img loading="lazy" width="1583" height="2021" src="img/portraits-of-courage/30. Andy Hatcher.jpg" alt="30. Andy Hatcher">
+    </a>
+    <figcaption>30. Andy Hatcher</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#31-jeremy-d-henderson" id="31-jeremy-d-henderson-thumb">
+      <img loading="lazy" width="1535" height="1967" src="img/portraits-of-courage/31. Jeremy D. Henderson.jpg" alt="31. Jeremy D. Henderson">
+    </a>
+    <figcaption>31. Jeremy D. Henderson</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#33-juan-carlos-hernandez" id="33-juan-carlos-hernandez-thumb">
+      <img loading="lazy" width="1587" height="2013" src="img/portraits-of-courage/33. Juan Carlos Hernandez.jpg" alt="33. Juan Carlos Hernandez">
+    </a>
+    <figcaption>33. Juan Carlos Hernandez</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#34-andrew-w-hillstrom" id="34-andrew-w-hillstrom-thumb">
+      <img loading="lazy" width="1581" height="2020" src="img/portraits-of-courage/34. Andrew W. Hillstrom.jpg" alt="34. Andrew W. Hillstrom">
+    </a>
+    <figcaption>34. Andrew W. Hillstrom</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#35-adam-jahnke" id="35-adam-jahnke-thumb">
+      <img loading="lazy" width="1535" height="1953" src="img/portraits-of-courage/35. Adam Jahnke.jpg" alt="35. Adam Jahnke">
+    </a>
+    <figcaption>35. Adam Jahnke</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#36-jacque-keeslar" id="36-jacque-keeslar-thumb">
+      <img loading="lazy" width="1552" height="2057" src="img/portraits-of-courage/36.Jacque Keeslar.jpg" alt="36.Jacque Keeslar">
+    </a>
+    <figcaption>36.Jacque Keeslar</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#37-timothy-john-lang" id="37-timothy-john-lang-thumb">
+      <img loading="lazy" width="1449" height="2204" src="img/portraits-of-courage/37. Timothy John Lang.jpg" alt="37. Timothy John Lang">
+    </a>
+    <figcaption>37. Timothy John Lang</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#38-robert-k-leonard" id="38-robert-k-leonard-thumb">
+      <img loading="lazy" width="1571" height="2032" src="img/portraits-of-courage/38. Robert K. Leonard.jpg" alt="38. Robert K. Leonard">
+    </a>
+    <figcaption>38. Robert K. Leonard</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#39-jacob-lerner" id="39-jacob-lerner-thumb">
+      <img loading="lazy" width="1525" height="1993" src="img/portraits-of-courage/39. Jacob Lerner.jpg" alt="39. Jacob Lerner">
+    </a>
+    <figcaption>39. Jacob Lerner</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#40-scott-p-lilley" id="40-scott-p-lilley-thumb">
+      <img loading="lazy" width="1548" height="2064" src="img/portraits-of-courage/40. Scott P. Lilley.jpg" alt="40. Scott P. Lilley">
+    </a>
+    <figcaption>40. Scott P. Lilley</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#41-saul-martinez" id="41-saul-martinez-thumb">
+      <img loading="lazy" width="1027" height="2092" src="img/portraits-of-courage/41. Saul Martinez.jpg" alt="41. Saul Martinez">
+    </a>
+    <figcaption>41. Saul Martinez</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#43-joshua-michael" id="43-joshua-michael-thumb">
+      <img loading="lazy" width="1535" height="1982" src="img/portraits-of-courage/43. Joshua Michael.jpg" alt="43. Joshua Michael">
+    </a>
+    <figcaption>43. Joshua Michael</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#44-spencer-c-milo" id="44-spencer-c-milo-thumb">
+      <img loading="lazy" width="1540" height="1979" src="img/portraits-of-courage/44. Spencer C. Milo.jpg" alt="44. Spencer C. Milo">
+    </a>
+    <figcaption>44. Spencer C. Milo</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#46-ramon-padilla" id="46-ramon-padilla-thumb">
+      <img loading="lazy" width="1566" height="2021" src="img/portraits-of-courage/46. Ramon Padilla.jpg" alt="46. Ramon Padilla">
+    </a>
+    <figcaption>46. Ramon Padilla</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#47-scott-neil" id="47-scott-neil-thumb">
+      <img loading="lazy" width="1542" height="2071" src="img/portraits-of-courage/47. Scott Neil.jpg" alt="47. Scott Neil">
+    </a>
+    <figcaption>47. Scott Neil</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#48-dan-nevins" id="48-dan-nevins-thumb">
+      <img loading="lazy" width="1467" height="2178" src="img/portraits-of-courage/48.Dan Nevins.jpg" alt="48.Dan Nevins">
+    </a>
+    <figcaption>48.Dan Nevins</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#49-denis-oliverio" id="49-denis-oliverio-thumb">
+      <img loading="lazy" width="1545" height="1991" src="img/portraits-of-courage/49. Denis Oliverio.jpg" alt="49. Denis Oliverio">
+    </a>
+    <figcaption>49. Denis Oliverio</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#50-michael-joseph-leonard-politowicz" id="50-michael-joseph-leonard-politowicz-thumb">
+      <img loading="lazy" width="1492" height="2010" src="img/portraits-of-courage/50. Michael Joseph Leonard Politowicz.jpg" alt="50. Michael Joseph Leonard Politowicz">
+    </a>
+    <figcaption>50. Michael Joseph Leonard Politowicz</figcaption>
+  </figure>
+  
+  <figure class="landscape">
+    <a href="#51-roque-urena" id="51-roque-urena-thumb">
+      <img loading="lazy" width="2096" height="1397" src="img/portraits-of-courage/51. Roque Urena.jpg" alt="51. Roque Urena">
+    </a>
+    <figcaption>51. Roque Urena</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#52-michael-r-rodriguez" id="52-michael-r-rodriguez-thumb">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/52. Michael R. Rodriguez.jpg" alt="52. Michael R. Rodriguez">
+    </a>
+    <figcaption>52. Michael R. Rodriguez</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#53-omar-romney" id="53-omar-romney-thumb">
+      <img loading="lazy" width="1538" height="1976" src="img/portraits-of-courage/53. Omar Romney.jpg" alt="53. Omar Romney">
+    </a>
+    <figcaption>53. Omar Romney</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#54-kevin-l-rosenblum" id="54-kevin-l-rosenblum-thumb">
+      <img loading="lazy" width="1535" height="1925" src="img/portraits-of-courage/54. Kevin L. Rosenblum.jpg" alt="54. Kevin L. Rosenblum">
+    </a>
+    <figcaption>54. Kevin L. Rosenblum</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#55-lee-sage" id="55-lee-sage-thumb">
+      <img loading="lazy" width="1492" height="1872" src="img/portraits-of-courage/55. Lee Sage.jpg" alt="55. Lee Sage">
+    </a>
+    <figcaption>55. Lee Sage</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#56-jose-e-santiago" id="56-jose-e-santiago-thumb">
+      <img loading="lazy" width="1533" height="1983" src="img/portraits-of-courage/56. José E. Santiago.jpg" alt="56. José E. Santiago">
+    </a>
+    <figcaption>56. José E. Santiago</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#57-christopher-self" id="57-christopher-self-thumb">
+      <img loading="lazy" width="1588" height="1900" src="img/portraits-of-courage/57. Christopher Self.jpg" alt="57. Christopher Self">
+    </a>
+    <figcaption>57. Christopher Self</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#58-david-smith" id="58-david-smith-thumb">
+      <img loading="lazy" width="1497" height="1893" src="img/portraits-of-courage/58. David Smith.jpg" alt="58. David Smith">
+    </a>
+    <figcaption>58. David Smith</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#59-kent-graham-solheim" id="59-kent-graham-solheim-thumb">
+      <img loading="lazy" width="1777" height="1797" src="img/portraits-of-courage/59. Kent Graham Solheim.jpg" alt="59. Kent Graham Solheim">
+    </a>
+    <figcaption>59. Kent Graham Solheim</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#60-james-m-stanek-jr" id="60-james-m-stanek-jr-thumb">
+      <img loading="lazy" width="1540" height="2072" src="img/portraits-of-courage/60. James M. Stanek Jr..jpg" alt="60. James M. Stanek Jr.">
+    </a>
+    <figcaption>60. James M. Stanek Jr.</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#61-melissa-stockwell" id="61-melissa-stockwell-thumb">
+      <img loading="lazy" width="1542" height="2071" src="img/portraits-of-courage/61. Melissa Stockwell.jpg" alt="61. Melissa Stockwell">
+    </a>
+    <figcaption>61. Melissa Stockwell</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#62-john-paul-szczepanowski" id="62-john-paul-szczepanowski-thumb">
+      <img loading="lazy" width="1520" height="1973" src="img/portraits-of-courage/62. John Paul Szczepanowski.jpg" alt="62. John Paul Szczepanowski">
+    </a>
+    <figcaption>62. John Paul Szczepanowski</figcaption>
+  </figure>
+  
+  <figure class="landscape">
+    <a href="#63-christopher-andrew-turner" id="63-christopher-andrew-turner-thumb">
+      <img loading="lazy" width="1526" height="1510" src="img/portraits-of-courage/63. Christopher Andrew Turner.jpg" alt="63. Christopher Andrew Turner">
+    </a>
+    <figcaption>63. Christopher Andrew Turner</figcaption>
+  </figure>
+  
+  <figure class="landscape">
+    <a href="#64-christopher-andrew-turner" id="64-christopher-andrew-turner-thumb">
+      <img loading="lazy" width="1526" height="1511" src="img/portraits-of-courage/64. Christopher Andrew Turner.jpg" alt="64. Christopher Andrew Turner">
+    </a>
+    <figcaption>64. Christopher Andrew Turner</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#65-jeremy-james-valdez" id="65-jeremy-james-valdez-thumb">
+      <img loading="lazy" width="1459" height="2190" src="img/portraits-of-courage/65. Jeremy James Valdez.jpg" alt="65. Jeremy James Valdez">
+    </a>
+    <figcaption>65. Jeremy James Valdez</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#66-bryon-vincent" id="66-bryon-vincent-thumb">
+      <img loading="lazy" width="1535" height="2071" src="img/portraits-of-courage/66. Bryon Vincent.jpg" alt="66. Bryon Vincent">
+    </a>
+    <figcaption>66. Bryon Vincent</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#68-james-williamson" id="68-james-williamson-thumb">
+      <img loading="lazy" width="1544" height="2067" src="img/portraits-of-courage/68. James Williamson.jpg" alt="68. James Williamson">
+    </a>
+    <figcaption>68. James Williamson</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#70-david-a-wright" id="70-david-a-wright-thumb">
+      <img loading="lazy" width="1522" height="1945" src="img/portraits-of-courage/70. David A. Wright.jpg" alt="70. David A. Wright">
+    </a>
+    <figcaption>70. David A. Wright</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#71-matthew-zbiec" id="71-matthew-zbiec-thumb">
+      <img loading="lazy" width="1457" height="2193" src="img/portraits-of-courage/71. Matthew Zbiec.jpg" alt="71. Matthew Zbiec">
+    </a>
+    <figcaption>71. Matthew Zbiec</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#72-leslie-zimmerma" id="72-leslie-zimmerma-thumb">
+      <img loading="lazy" width="1625" height="1966" src="img/portraits-of-courage/72. Leslie Zimmerma.jpg" alt="72. Leslie Zimmerma">
+    </a>
+    <figcaption>72. Leslie Zimmerma</figcaption>
+  </figure>
+  
+  <figure class="landscape">
+    <a href="#73-mural-of-america-s-armed-forces" id="73-mural-of-america-s-armed-forces-thumb">
+      <img loading="lazy" width="2005" height="1593" src="img/portraits-of-courage/73. MURAL OF AMERICA’S ARMED FORCES.jpg" alt="73. MURAL OF AMERICA’S ARMED FORCES">
+    </a>
+    <figcaption>73. MURAL OF AMERICA’S ARMED FORCES</figcaption>
+  </figure>
+  
+  <figure class="landscape">
+    <a href="#74-mural-of-america-s-armed-forces" id="74-mural-of-america-s-armed-forces-thumb">
+      <img loading="lazy" width="2000" height="1597" src="img/portraits-of-courage/74. MURAL OF AMERICA’S ARMED FORCES.jpg" alt="74. MURAL OF AMERICA’S ARMED FORCES">
+    </a>
+    <figcaption>74. MURAL OF AMERICA’S ARMED FORCES</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#75-mural-of-america-s-armed-forces" id="75-mural-of-america-s-armed-forces-thumb">
+      <img loading="lazy" width="1556" height="2053" src="img/portraits-of-courage/75. MURAL OF AMERICA’S ARMED FORCES.jpg" alt="75. MURAL OF AMERICA’S ARMED FORCES">
+    </a>
+    <figcaption>75. MURAL OF AMERICA’S ARMED FORCES</figcaption>
+  </figure>
+  
+  <figure class="portrait">
+    <a href="#76-mural-of-america-s-armed-forces" id="76-mural-of-america-s-armed-forces-thumb">
+      <img loading="lazy" width="1554" height="2056" src="img/portraits-of-courage/76. MURAL OF AMERICA’S ARMED FORCES.jpg" alt="76. MURAL OF AMERICA’S ARMED FORCES">
+    </a>
+    <figcaption>76. MURAL OF AMERICA’S ARMED FORCES</figcaption>
+  </figure>
+      </div>
+    <div class="lightbox">
+      
+  <figure tabindex="0" id="01-scott-alan-adams-sr" class="portrait">
+    <a tabindex="-1" href="#01-scott-alan-adams-sr" class="image">
+      <img loading="lazy" width="1459" height="2188" src="img/portraits-of-courage/01. Scott Alan Adams Sr..jpg" alt="01. Scott Alan Adams Sr." title="01. Scott Alan Adams Sr.">
+    </a>
+    <a tabindex="-1" href="#01-scott-alan-adams-sr-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="02-matthew-s-ayers" class="portrait">
+    <a tabindex="-1" href="#02-matthew-s-ayers" class="image">
+      <img loading="lazy" width="1600" height="1935" src="img/portraits-of-courage/02. Matthew S. Ayers.jpg" alt="02. Matthew S. Ayers" title="02. Matthew S. Ayers">
+    </a>
+    <a tabindex="-1" href="#02-matthew-s-ayers-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="03-jae-barclay" class="portrait">
+    <a tabindex="-1" href="#03-jae-barclay" class="image">
+      <img loading="lazy" width="1437" height="2221" src="img/portraits-of-courage/03. Jae Barclay.jpg" alt="03. Jae Barclay" title="03. Jae Barclay">
+    </a>
+    <a tabindex="-1" href="#03-jae-barclay-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="04-sean-bennett" class="portrait">
+    <a tabindex="-1" href="#04-sean-bennett" class="image">
+      <img loading="lazy" width="1373" height="1775" src="img/portraits-of-courage/04. Sean Bennett.jpg" alt="04. Sean Bennett" title="04. Sean Bennett">
+    </a>
+    <a tabindex="-1" href="#04-sean-bennett-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="05-justin-bond" class="portrait">
+    <a tabindex="-1" href="#05-justin-bond" class="image">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/05. Justin Bond.jpg" alt="05. Justin Bond" title="05. Justin Bond">
+    </a>
+    <a tabindex="-1" href="#05-justin-bond-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="06-thomas-brooks" class="portrait">
+    <a tabindex="-1" href="#06-thomas-brooks" class="image">
+      <img loading="lazy" width="1238" height="2499" src="img/portraits-of-courage/06. Thomas Brooks.jpg" alt="06. Thomas Brooks" title="06. Thomas Brooks">
+    </a>
+    <a tabindex="-1" href="#06-thomas-brooks-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="07-timothy-brown" class="portrait">
+    <a tabindex="-1" href="#07-timothy-brown" class="image">
+      <img loading="lazy" width="1436" height="2197" src="img/portraits-of-courage/07. Timothy Brown.jpg" alt="07. Timothy Brown" title="07. Timothy Brown">
+    </a>
+    <a tabindex="-1" href="#07-timothy-brown-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="08-daniel-casara" class="portrait">
+    <a tabindex="-1" href="#08-daniel-casara" class="image">
+      <img loading="lazy" width="1518" height="1984" src="img/portraits-of-courage/08. Daniel Casara.jpg" alt="08. Daniel Casara" title="08. Daniel Casara">
+    </a>
+    <a tabindex="-1" href="#08-daniel-casara-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="09-bryce-franklin-cole" class="portrait">
+    <a tabindex="-1" href="#09-bryce-franklin-cole" class="image">
+      <img loading="lazy" width="1535" height="1922" src="img/portraits-of-courage/09. Bryce Franklin Cole.jpg" alt="09. Bryce Franklin Cole" title="09. Bryce Franklin Cole">
+    </a>
+    <a tabindex="-1" href="#09-bryce-franklin-cole-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="10-zachariah-collet" class="landscape">
+    <a tabindex="-1" href="#10-zachariah-collet" class="image">
+      <img loading="lazy" width="1765" height="1755" src="img/portraits-of-courage/10. Zachariah Collet.jpg" alt="10. Zachariah Collet" title="10. Zachariah Collet">
+    </a>
+    <a tabindex="-1" href="#10-zachariah-collet-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="11-justin-constantine" class="portrait">
+    <a tabindex="-1" href="#11-justin-constantine" class="image">
+      <img loading="lazy" width="1457" height="2192" src="img/portraits-of-courage/11. Justin Constantine.jpg" alt="11. Justin Constantine" title="11. Justin Constantine">
+    </a>
+    <a tabindex="-1" href="#11-justin-constantine-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="12-thomas-william-costello" class="portrait">
+    <a tabindex="-1" href="#12-thomas-william-costello" class="image">
+      <img loading="lazy" width="1530" height="2055" src="img/portraits-of-courage/12. Thomas William Costello.jpg" alt="12. Thomas William Costello" title="12. Thomas William Costello">
+    </a>
+    <a tabindex="-1" href="#12-thomas-william-costello-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="13-israel-del-toro-jr" class="portrait">
+    <a tabindex="-1" href="#13-israel-del-toro-jr" class="image">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/13. Israel Del Toro Jr..jpg" alt="13. Israel Del Toro Jr." title="13. Israel Del Toro Jr.">
+    </a>
+    <a tabindex="-1" href="#13-israel-del-toro-jr-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="14-ben-dellinger" class="portrait">
+    <a tabindex="-1" href="#14-ben-dellinger" class="image">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/14. Ben Dellinger.jpg" alt="14. Ben Dellinger" title="14. Ben Dellinger">
+    </a>
+    <a tabindex="-1" href="#14-ben-dellinger-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="15-chris-demars" class="portrait">
+    <a tabindex="-1" href="#15-chris-demars" class="image">
+      <img loading="lazy" width="1595" height="1995" src="img/portraits-of-courage/15. Chris Demars.jpg" alt="15. Chris Demars" title="15. Chris Demars">
+    </a>
+    <a tabindex="-1" href="#15-chris-demars-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="16-matthew-dewitt" class="portrait">
+    <a tabindex="-1" href="#16-matthew-dewitt" class="image">
+      <img loading="lazy" width="1605" height="1955" src="img/portraits-of-courage/16. Matthew Dewitt.jpg" alt="16. Matthew Dewitt" title="16. Matthew Dewitt">
+    </a>
+    <a tabindex="-1" href="#16-matthew-dewitt-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="17-alvis-todd-domerese" class="portrait">
+    <a tabindex="-1" href="#17-alvis-todd-domerese" class="image">
+      <img loading="lazy" width="1486" height="2148" src="img/portraits-of-courage/17. Alvis “Todd” Domerese.jpg" alt="17. Alvis “Todd” Domerese" title="17. Alvis “Todd” Domerese">
+    </a>
+    <a tabindex="-1" href="#17-alvis-todd-domerese-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="18-brian-donarski" class="portrait">
+    <a tabindex="-1" href="#18-brian-donarski" class="image">
+      <img loading="lazy" width="1558" height="1881" src="img/portraits-of-courage/18. Brian Donarski.jpg" alt="18. Brian Donarski" title="18. Brian Donarski">
+    </a>
+    <a tabindex="-1" href="#18-brian-donarski-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="19-robert-dove" class="portrait">
+    <a tabindex="-1" href="#19-robert-dove" class="image">
+      <img loading="lazy" width="1526" height="2048" src="img/portraits-of-courage/19. Robert Dove.jpg" alt="19. Robert Dove" title="19. Robert Dove">
+    </a>
+    <a tabindex="-1" href="#19-robert-dove-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="20-kenneth-michael-dwyer" class="portrait">
+    <a tabindex="-1" href="#20-kenneth-michael-dwyer" class="image">
+      <img loading="lazy" width="1545" height="1917" src="img/portraits-of-courage/20. Kenneth Michael Dwyer.jpg" alt="20. Kenneth Michael Dwyer" title="20. Kenneth Michael Dwyer">
+    </a>
+    <a tabindex="-1" href="#20-kenneth-michael-dwyer-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="21-jay-k-fain-jr" class="portrait">
+    <a tabindex="-1" href="#21-jay-k-fain-jr" class="image">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/21. Jay K. Fain Jr..jpg" alt="21. Jay K. Fain Jr." title="21. Jay K. Fain Jr.">
+    </a>
+    <a tabindex="-1" href="#21-jay-k-fain-jr-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="23-daniel-gade" class="portrait">
+    <a tabindex="-1" href="#23-daniel-gade" class="image">
+      <img loading="lazy" width="1428" height="2235" src="img/portraits-of-courage/23. Daniel Gade.jpg" alt="23. Daniel Gade" title="23. Daniel Gade">
+    </a>
+    <a tabindex="-1" href="#23-daniel-gade-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="24-timothy-gaestel" class="portrait">
+    <a tabindex="-1" href="#24-timothy-gaestel" class="image">
+      <img loading="lazy" width="1545" height="2049" src="img/portraits-of-courage/24. Timothy Gaestel.jpg" alt="24. Timothy Gaestel" title="24. Timothy Gaestel">
+    </a>
+    <a tabindex="-1" href="#24-timothy-gaestel-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="25-jack-schumacher" class="portrait">
+    <a tabindex="-1" href="#25-jack-schumacher" class="image">
+      <img loading="lazy" width="1596" height="2001" src="img/portraits-of-courage/25. Jack Schumacher.jpg" alt="25. Jack Schumacher" title="25. Jack Schumacher">
+    </a>
+    <a tabindex="-1" href="#25-jack-schumacher-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="26-william-j-ganem" class="portrait">
+    <a tabindex="-1" href="#26-william-j-ganem" class="image">
+      <img loading="lazy" width="1518" height="2009" src="img/portraits-of-courage/26. William J. Ganem.jpg" alt="26. William J. Ganem" title="26. William J. Ganem">
+    </a>
+    <a tabindex="-1" href="#26-william-j-ganem-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="27-aalexander-glenn-camden" class="portrait">
+    <a tabindex="-1" href="#27-aalexander-glenn-camden" class="image">
+      <img loading="lazy" width="1530" height="1992" src="img/portraits-of-courage/27. Aalexander Glenn-Camden.jpg" alt="27. Aalexander Glenn-Camden" title="27. Aalexander Glenn-Camden">
+    </a>
+    <a tabindex="-1" href="#27-aalexander-glenn-camden-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="28-chris-goehner" class="portrait">
+    <a tabindex="-1" href="#28-chris-goehner" class="image">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/28. Chris Goehner.jpg" alt="28. Chris Goehner" title="28. Chris Goehner">
+    </a>
+    <a tabindex="-1" href="#28-chris-goehner-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="29-david-haines" class="portrait">
+    <a tabindex="-1" href="#29-david-haines" class="image">
+      <img loading="lazy" width="1529" height="1904" src="img/portraits-of-courage/29. David Haines.jpg" alt="29. David Haines" title="29. David Haines">
+    </a>
+    <a tabindex="-1" href="#29-david-haines-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="30-andy-hatcher" class="portrait">
+    <a tabindex="-1" href="#30-andy-hatcher" class="image">
+      <img loading="lazy" width="1583" height="2021" src="img/portraits-of-courage/30. Andy Hatcher.jpg" alt="30. Andy Hatcher" title="30. Andy Hatcher">
+    </a>
+    <a tabindex="-1" href="#30-andy-hatcher-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="31-jeremy-d-henderson" class="portrait">
+    <a tabindex="-1" href="#31-jeremy-d-henderson" class="image">
+      <img loading="lazy" width="1535" height="1967" src="img/portraits-of-courage/31. Jeremy D. Henderson.jpg" alt="31. Jeremy D. Henderson" title="31. Jeremy D. Henderson">
+    </a>
+    <a tabindex="-1" href="#31-jeremy-d-henderson-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="33-juan-carlos-hernandez" class="portrait">
+    <a tabindex="-1" href="#33-juan-carlos-hernandez" class="image">
+      <img loading="lazy" width="1587" height="2013" src="img/portraits-of-courage/33. Juan Carlos Hernandez.jpg" alt="33. Juan Carlos Hernandez" title="33. Juan Carlos Hernandez">
+    </a>
+    <a tabindex="-1" href="#33-juan-carlos-hernandez-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="34-andrew-w-hillstrom" class="portrait">
+    <a tabindex="-1" href="#34-andrew-w-hillstrom" class="image">
+      <img loading="lazy" width="1581" height="2020" src="img/portraits-of-courage/34. Andrew W. Hillstrom.jpg" alt="34. Andrew W. Hillstrom" title="34. Andrew W. Hillstrom">
+    </a>
+    <a tabindex="-1" href="#34-andrew-w-hillstrom-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="35-adam-jahnke" class="portrait">
+    <a tabindex="-1" href="#35-adam-jahnke" class="image">
+      <img loading="lazy" width="1535" height="1953" src="img/portraits-of-courage/35. Adam Jahnke.jpg" alt="35. Adam Jahnke" title="35. Adam Jahnke">
+    </a>
+    <a tabindex="-1" href="#35-adam-jahnke-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="36-jacque-keeslar" class="portrait">
+    <a tabindex="-1" href="#36-jacque-keeslar" class="image">
+      <img loading="lazy" width="1552" height="2057" src="img/portraits-of-courage/36.Jacque Keeslar.jpg" alt="36.Jacque Keeslar" title="36.Jacque Keeslar">
+    </a>
+    <a tabindex="-1" href="#36-jacque-keeslar-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="37-timothy-john-lang" class="portrait">
+    <a tabindex="-1" href="#37-timothy-john-lang" class="image">
+      <img loading="lazy" width="1449" height="2204" src="img/portraits-of-courage/37. Timothy John Lang.jpg" alt="37. Timothy John Lang" title="37. Timothy John Lang">
+    </a>
+    <a tabindex="-1" href="#37-timothy-john-lang-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="38-robert-k-leonard" class="portrait">
+    <a tabindex="-1" href="#38-robert-k-leonard" class="image">
+      <img loading="lazy" width="1571" height="2032" src="img/portraits-of-courage/38. Robert K. Leonard.jpg" alt="38. Robert K. Leonard" title="38. Robert K. Leonard">
+    </a>
+    <a tabindex="-1" href="#38-robert-k-leonard-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="39-jacob-lerner" class="portrait">
+    <a tabindex="-1" href="#39-jacob-lerner" class="image">
+      <img loading="lazy" width="1525" height="1993" src="img/portraits-of-courage/39. Jacob Lerner.jpg" alt="39. Jacob Lerner" title="39. Jacob Lerner">
+    </a>
+    <a tabindex="-1" href="#39-jacob-lerner-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="40-scott-p-lilley" class="portrait">
+    <a tabindex="-1" href="#40-scott-p-lilley" class="image">
+      <img loading="lazy" width="1548" height="2064" src="img/portraits-of-courage/40. Scott P. Lilley.jpg" alt="40. Scott P. Lilley" title="40. Scott P. Lilley">
+    </a>
+    <a tabindex="-1" href="#40-scott-p-lilley-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="41-saul-martinez" class="portrait">
+    <a tabindex="-1" href="#41-saul-martinez" class="image">
+      <img loading="lazy" width="1027" height="2092" src="img/portraits-of-courage/41. Saul Martinez.jpg" alt="41. Saul Martinez" title="41. Saul Martinez">
+    </a>
+    <a tabindex="-1" href="#41-saul-martinez-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="43-joshua-michael" class="portrait">
+    <a tabindex="-1" href="#43-joshua-michael" class="image">
+      <img loading="lazy" width="1535" height="1982" src="img/portraits-of-courage/43. Joshua Michael.jpg" alt="43. Joshua Michael" title="43. Joshua Michael">
+    </a>
+    <a tabindex="-1" href="#43-joshua-michael-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="44-spencer-c-milo" class="portrait">
+    <a tabindex="-1" href="#44-spencer-c-milo" class="image">
+      <img loading="lazy" width="1540" height="1979" src="img/portraits-of-courage/44. Spencer C. Milo.jpg" alt="44. Spencer C. Milo" title="44. Spencer C. Milo">
+    </a>
+    <a tabindex="-1" href="#44-spencer-c-milo-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="46-ramon-padilla" class="portrait">
+    <a tabindex="-1" href="#46-ramon-padilla" class="image">
+      <img loading="lazy" width="1566" height="2021" src="img/portraits-of-courage/46. Ramon Padilla.jpg" alt="46. Ramon Padilla" title="46. Ramon Padilla">
+    </a>
+    <a tabindex="-1" href="#46-ramon-padilla-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="47-scott-neil" class="portrait">
+    <a tabindex="-1" href="#47-scott-neil" class="image">
+      <img loading="lazy" width="1542" height="2071" src="img/portraits-of-courage/47. Scott Neil.jpg" alt="47. Scott Neil" title="47. Scott Neil">
+    </a>
+    <a tabindex="-1" href="#47-scott-neil-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="48-dan-nevins" class="portrait">
+    <a tabindex="-1" href="#48-dan-nevins" class="image">
+      <img loading="lazy" width="1467" height="2178" src="img/portraits-of-courage/48.Dan Nevins.jpg" alt="48.Dan Nevins" title="48.Dan Nevins">
+    </a>
+    <a tabindex="-1" href="#48-dan-nevins-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="49-denis-oliverio" class="portrait">
+    <a tabindex="-1" href="#49-denis-oliverio" class="image">
+      <img loading="lazy" width="1545" height="1991" src="img/portraits-of-courage/49. Denis Oliverio.jpg" alt="49. Denis Oliverio" title="49. Denis Oliverio">
+    </a>
+    <a tabindex="-1" href="#49-denis-oliverio-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="50-michael-joseph-leonard-politowicz" class="portrait">
+    <a tabindex="-1" href="#50-michael-joseph-leonard-politowicz" class="image">
+      <img loading="lazy" width="1492" height="2010" src="img/portraits-of-courage/50. Michael Joseph Leonard Politowicz.jpg" alt="50. Michael Joseph Leonard Politowicz" title="50. Michael Joseph Leonard Politowicz">
+    </a>
+    <a tabindex="-1" href="#50-michael-joseph-leonard-politowicz-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="51-roque-urena" class="landscape">
+    <a tabindex="-1" href="#51-roque-urena" class="image">
+      <img loading="lazy" width="2096" height="1397" src="img/portraits-of-courage/51. Roque Urena.jpg" alt="51. Roque Urena" title="51. Roque Urena">
+    </a>
+    <a tabindex="-1" href="#51-roque-urena-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="52-michael-r-rodriguez" class="portrait">
+    <a tabindex="-1" href="#52-michael-r-rodriguez" class="image">
+      <img loading="lazy" width="1459" height="2189" src="img/portraits-of-courage/52. Michael R. Rodriguez.jpg" alt="52. Michael R. Rodriguez" title="52. Michael R. Rodriguez">
+    </a>
+    <a tabindex="-1" href="#52-michael-r-rodriguez-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="53-omar-romney" class="portrait">
+    <a tabindex="-1" href="#53-omar-romney" class="image">
+      <img loading="lazy" width="1538" height="1976" src="img/portraits-of-courage/53. Omar Romney.jpg" alt="53. Omar Romney" title="53. Omar Romney">
+    </a>
+    <a tabindex="-1" href="#53-omar-romney-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="54-kevin-l-rosenblum" class="portrait">
+    <a tabindex="-1" href="#54-kevin-l-rosenblum" class="image">
+      <img loading="lazy" width="1535" height="1925" src="img/portraits-of-courage/54. Kevin L. Rosenblum.jpg" alt="54. Kevin L. Rosenblum" title="54. Kevin L. Rosenblum">
+    </a>
+    <a tabindex="-1" href="#54-kevin-l-rosenblum-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="55-lee-sage" class="portrait">
+    <a tabindex="-1" href="#55-lee-sage" class="image">
+      <img loading="lazy" width="1492" height="1872" src="img/portraits-of-courage/55. Lee Sage.jpg" alt="55. Lee Sage" title="55. Lee Sage">
+    </a>
+    <a tabindex="-1" href="#55-lee-sage-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="56-jose-e-santiago" class="portrait">
+    <a tabindex="-1" href="#56-jose-e-santiago" class="image">
+      <img loading="lazy" width="1533" height="1983" src="img/portraits-of-courage/56. José E. Santiago.jpg" alt="56. José E. Santiago" title="56. José E. Santiago">
+    </a>
+    <a tabindex="-1" href="#56-jose-e-santiago-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="57-christopher-self" class="portrait">
+    <a tabindex="-1" href="#57-christopher-self" class="image">
+      <img loading="lazy" width="1588" height="1900" src="img/portraits-of-courage/57. Christopher Self.jpg" alt="57. Christopher Self" title="57. Christopher Self">
+    </a>
+    <a tabindex="-1" href="#57-christopher-self-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="58-david-smith" class="portrait">
+    <a tabindex="-1" href="#58-david-smith" class="image">
+      <img loading="lazy" width="1497" height="1893" src="img/portraits-of-courage/58. David Smith.jpg" alt="58. David Smith" title="58. David Smith">
+    </a>
+    <a tabindex="-1" href="#58-david-smith-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="59-kent-graham-solheim" class="portrait">
+    <a tabindex="-1" href="#59-kent-graham-solheim" class="image">
+      <img loading="lazy" width="1777" height="1797" src="img/portraits-of-courage/59. Kent Graham Solheim.jpg" alt="59. Kent Graham Solheim" title="59. Kent Graham Solheim">
+    </a>
+    <a tabindex="-1" href="#59-kent-graham-solheim-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="60-james-m-stanek-jr" class="portrait">
+    <a tabindex="-1" href="#60-james-m-stanek-jr" class="image">
+      <img loading="lazy" width="1540" height="2072" src="img/portraits-of-courage/60. James M. Stanek Jr..jpg" alt="60. James M. Stanek Jr." title="60. James M. Stanek Jr.">
+    </a>
+    <a tabindex="-1" href="#60-james-m-stanek-jr-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="61-melissa-stockwell" class="portrait">
+    <a tabindex="-1" href="#61-melissa-stockwell" class="image">
+      <img loading="lazy" width="1542" height="2071" src="img/portraits-of-courage/61. Melissa Stockwell.jpg" alt="61. Melissa Stockwell" title="61. Melissa Stockwell">
+    </a>
+    <a tabindex="-1" href="#61-melissa-stockwell-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="62-john-paul-szczepanowski" class="portrait">
+    <a tabindex="-1" href="#62-john-paul-szczepanowski" class="image">
+      <img loading="lazy" width="1520" height="1973" src="img/portraits-of-courage/62. John Paul Szczepanowski.jpg" alt="62. John Paul Szczepanowski" title="62. John Paul Szczepanowski">
+    </a>
+    <a tabindex="-1" href="#62-john-paul-szczepanowski-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="63-christopher-andrew-turner" class="landscape">
+    <a tabindex="-1" href="#63-christopher-andrew-turner" class="image">
+      <img loading="lazy" width="1526" height="1510" src="img/portraits-of-courage/63. Christopher Andrew Turner.jpg" alt="63. Christopher Andrew Turner" title="63. Christopher Andrew Turner">
+    </a>
+    <a tabindex="-1" href="#63-christopher-andrew-turner-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="64-christopher-andrew-turner" class="landscape">
+    <a tabindex="-1" href="#64-christopher-andrew-turner" class="image">
+      <img loading="lazy" width="1526" height="1511" src="img/portraits-of-courage/64. Christopher Andrew Turner.jpg" alt="64. Christopher Andrew Turner" title="64. Christopher Andrew Turner">
+    </a>
+    <a tabindex="-1" href="#64-christopher-andrew-turner-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="65-jeremy-james-valdez" class="portrait">
+    <a tabindex="-1" href="#65-jeremy-james-valdez" class="image">
+      <img loading="lazy" width="1459" height="2190" src="img/portraits-of-courage/65. Jeremy James Valdez.jpg" alt="65. Jeremy James Valdez" title="65. Jeremy James Valdez">
+    </a>
+    <a tabindex="-1" href="#65-jeremy-james-valdez-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="66-bryon-vincent" class="portrait">
+    <a tabindex="-1" href="#66-bryon-vincent" class="image">
+      <img loading="lazy" width="1535" height="2071" src="img/portraits-of-courage/66. Bryon Vincent.jpg" alt="66. Bryon Vincent" title="66. Bryon Vincent">
+    </a>
+    <a tabindex="-1" href="#66-bryon-vincent-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="68-james-williamson" class="portrait">
+    <a tabindex="-1" href="#68-james-williamson" class="image">
+      <img loading="lazy" width="1544" height="2067" src="img/portraits-of-courage/68. James Williamson.jpg" alt="68. James Williamson" title="68. James Williamson">
+    </a>
+    <a tabindex="-1" href="#68-james-williamson-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="70-david-a-wright" class="portrait">
+    <a tabindex="-1" href="#70-david-a-wright" class="image">
+      <img loading="lazy" width="1522" height="1945" src="img/portraits-of-courage/70. David A. Wright.jpg" alt="70. David A. Wright" title="70. David A. Wright">
+    </a>
+    <a tabindex="-1" href="#70-david-a-wright-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="71-matthew-zbiec" class="portrait">
+    <a tabindex="-1" href="#71-matthew-zbiec" class="image">
+      <img loading="lazy" width="1457" height="2193" src="img/portraits-of-courage/71. Matthew Zbiec.jpg" alt="71. Matthew Zbiec" title="71. Matthew Zbiec">
+    </a>
+    <a tabindex="-1" href="#71-matthew-zbiec-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="72-leslie-zimmerma" class="portrait">
+    <a tabindex="-1" href="#72-leslie-zimmerma" class="image">
+      <img loading="lazy" width="1625" height="1966" src="img/portraits-of-courage/72. Leslie Zimmerma.jpg" alt="72. Leslie Zimmerma" title="72. Leslie Zimmerma">
+    </a>
+    <a tabindex="-1" href="#72-leslie-zimmerma-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="73-mural-of-america-s-armed-forces" class="landscape">
+    <a tabindex="-1" href="#73-mural-of-america-s-armed-forces" class="image">
+      <img loading="lazy" width="2005" height="1593" src="img/portraits-of-courage/73. MURAL OF AMERICA’S ARMED FORCES.jpg" alt="73. MURAL OF AMERICA’S ARMED FORCES" title="73. MURAL OF AMERICA’S ARMED FORCES">
+    </a>
+    <a tabindex="-1" href="#73-mural-of-america-s-armed-forces-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="74-mural-of-america-s-armed-forces" class="landscape">
+    <a tabindex="-1" href="#74-mural-of-america-s-armed-forces" class="image">
+      <img loading="lazy" width="2000" height="1597" src="img/portraits-of-courage/74. MURAL OF AMERICA’S ARMED FORCES.jpg" alt="74. MURAL OF AMERICA’S ARMED FORCES" title="74. MURAL OF AMERICA’S ARMED FORCES">
+    </a>
+    <a tabindex="-1" href="#74-mural-of-america-s-armed-forces-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="75-mural-of-america-s-armed-forces" class="portrait">
+    <a tabindex="-1" href="#75-mural-of-america-s-armed-forces" class="image">
+      <img loading="lazy" width="1556" height="2053" src="img/portraits-of-courage/75. MURAL OF AMERICA’S ARMED FORCES.jpg" alt="75. MURAL OF AMERICA’S ARMED FORCES" title="75. MURAL OF AMERICA’S ARMED FORCES">
+    </a>
+    <a tabindex="-1" href="#75-mural-of-america-s-armed-forces-thumb" class="close" ></a>
+  </figure>
+  
+  <figure tabindex="0" id="76-mural-of-america-s-armed-forces" class="portrait">
+    <a tabindex="-1" href="#76-mural-of-america-s-armed-forces" class="image">
+      <img loading="lazy" width="1554" height="2056" src="img/portraits-of-courage/76. MURAL OF AMERICA’S ARMED FORCES.jpg" alt="76. MURAL OF AMERICA’S ARMED FORCES" title="76. MURAL OF AMERICA’S ARMED FORCES">
+    </a>
+    <a tabindex="-1" href="#76-mural-of-america-s-armed-forces-thumb" class="close" ></a>
+  </figure>
+     
+      <div class="counter"></div>        
+    </div> 
+  </main>
+  <footer>
+    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet</a> was generated on December 20, 2021  </footer>
+  <script>
+  // esc key to close
+    document.addEventListener (
+      "keydown", (e) => {
+        if (e.keyCode == 27) {
+          document.activeElement.querySelector('.close').click();
+        }
+      }, false
+    );
+  </script>
+</body>
+</html>
