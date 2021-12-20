@@ -65,6 +65,8 @@ for($x = 0; $x < $totimg; $x++) {
   <meta name="viewport" content="width=device-width">     
   <title><?php echo $site_title; ?></title>
   <meta name="description" content="<?php echo $site_desc; ?>">
+  <meta property="og:title" content="<?php echo $site_title; ?>">
+  <meta property="og:description" content="<?php echo $site_desc; ?>">
   <meta name="twitter:card" content="summary">
   <style type="text/css">
     <?php echo file_get_contents($site_style); ?>
