@@ -45,7 +45,7 @@ footer {
   top: 100vh;
   padding: calc(var(--margin) * 2.5) 0 var(--margin) 0;
   font-size: 0.85em;
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 h1 {
@@ -79,7 +79,7 @@ img {
   padding-top: calc(var(--margin) * 2);
 }
 
-.grid figure {
+.grid figure {  
   position: relative;
 }
 
@@ -266,6 +266,7 @@ input#x-large:checked ~ .grid {
 
 .lightbox figure a.image::before,
 .lightbox figure a.image::after {
+  cursor: pointer;
   content: "";
   display: block;
   position: absolute;
@@ -276,12 +277,10 @@ input#x-large:checked ~ .grid {
 }
 
 .lightbox figure a.image::before {
-  cursor: e-resize;
   left: -33vw;
 }
 
 .lightbox figure a.image::after {
-  cursor: w-resize;
   right: -33vw;
 }
 
@@ -305,7 +304,7 @@ input#x-large:checked ~ .grid {
   counter-increment: currentStep;
 }
 
-.lightbox figure:target ~ figure::before {
+.lightbox figure:focus ~ figure::before {
   counter-increment: remainder;
 }
 
@@ -313,14 +312,14 @@ input#x-large:checked ~ .grid {
   font-variant-numeric: tabular-nums;
   opacity: 0.3;
   text-shadow: 1px 1px 2px var(--backcolor);
-  z-index: 3;
+  z-index: 1;
   position: fixed;
   bottom: 1em;
   right: 1.25em;
 }
 
-.lightbox:focus-within .counter::before {
-  content: counter(currentStep) " / " counter(totalStep);
+.lightbox .counter::before {
+  content: counter(currentStep) "/" counter(totalStep);
 }
 
 /* -- Close button -- */
@@ -899,7 +898,7 @@ a.close:hover {
     </div> 
   </main>
   <footer>
-    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet</a> was generated on December 20, 2021  </footer>
+    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet</a> was generated on December 21, 2021  </footer>
   <script>
   // esc key to close
     document.addEventListener (
