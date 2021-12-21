@@ -346,11 +346,10 @@ a.close:focus-visible {
   outline: 0;
 }
 
+a.close:hover::before,
+a.close:hover::after,
 .lightbox:focus-within::before,
 .lightbox:focus-within::after {
-  z-index: 2;
-  pointer-events: none;
-  position: fixed;
   top: 0;
   right: 0;
   padding: 0 1ch 10vmax 10vmax;
@@ -358,7 +357,20 @@ a.close:focus-visible {
   content: "\00d7";
   font-size: 2.4em;
   font-weight: 200;
+  position: fixed;
+  pointer-events: none;
+}
+
+.lightbox:focus-within::before,
+.lightbox:focus-within::after {
+  z-index: 2;
   opacity:.3;
+}
+
+a.close:hover::before,
+a.close:hover::after {
+  
+  color: var(--textcolor);
 }
 
 /* -- Loading spinner -- */
