@@ -45,7 +45,7 @@ footer {
   top: 100vh;
   padding: calc(var(--margin) * 2.5) 0 var(--margin) 0;
   font-size: 0.85em;
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 h1 {
@@ -79,7 +79,7 @@ img {
   padding-top: calc(var(--margin) * 2);
 }
 
-.grid figure {
+.grid figure {  
   position: relative;
 }
 
@@ -118,6 +118,11 @@ img {
   border-radius: 1px;
   box-shadow: 0 0 0 4px;
   background: currentColor;
+}
+
+.grid figure a:target {
+  outline: 1px solid;
+  border-radius: 4px;
 }
 
 .grid figure a:hover + figcaption,
@@ -223,7 +228,8 @@ input#x-large:checked ~ .grid {
   justify-content: center;
 }
 
-/* fix for #permalinks to work */
+/* fix for #permalinks to work…
+
 .lightbox:not(:focus-within) figure:target {
   position: fixed;
   top: 0;
@@ -232,6 +238,7 @@ input#x-large:checked ~ .grid {
   left: 0;
   z-index: 1;
 }
+*/
 
 .lightbox figure:focus {
   outline: none;
@@ -265,6 +272,7 @@ input#x-large:checked ~ .grid {
 
 .lightbox figure a.image::before,
 .lightbox figure a.image::after {
+  cursor: pointer;
   content: "";
   display: block;
   position: absolute;
@@ -275,12 +283,10 @@ input#x-large:checked ~ .grid {
 }
 
 .lightbox figure a.image::before {
-  cursor: e-resize;
   left: -33vw;
 }
 
 .lightbox figure a.image::after {
-  cursor: w-resize;
   right: -33vw;
 }
 
@@ -304,7 +310,7 @@ input#x-large:checked ~ .grid {
   counter-increment: currentStep;
 }
 
-.lightbox figure:target ~ figure::before {
+.lightbox figure:focus ~ figure::before {
   counter-increment: remainder;
 }
 
@@ -312,14 +318,14 @@ input#x-large:checked ~ .grid {
   font-variant-numeric: tabular-nums;
   opacity: 0.3;
   text-shadow: 1px 1px 2px var(--backcolor);
-  z-index: 3;
+  z-index: 2;
   position: fixed;
   bottom: 1em;
   right: 1.25em;
 }
 
-.lightbox:focus-within .counter::before {
-  content: counter(currentStep) " / " counter(totalStep);
+.lightbox .counter::before {
+  content: counter(currentStep) "/" counter(totalStep);
 }
 
 /* -- Close button -- */
@@ -330,7 +336,8 @@ a.close {
   top: 0;
   right: 0;
   z-index: 20;
-  opacity: 0.3;
+  color: transparent;
+  user-select: none;
   width: 10vmax;
   height: 10vmax;
 }
@@ -339,28 +346,31 @@ a.close:focus-visible {
   outline: 0;
 }
 
-a.close::before,
-a.close::after {
-  pointer-events: none;
-  position: absolute;
-  top: 1.75em;
-  right: 1.25em;
-  content: "";
-  width: 1.3em;
-  border: 1px solid;
+a.close:hover::before,
+a.close:hover::after,
+.lightbox:focus-within::before,
+.lightbox:focus-within::after {
+  top: 0;
+  right: 0;
+  padding: 0 1ch 10vmax 10vmax;
   display: block;
+  content: "\00d7";
+  font-size: 2.4em;
+  font-weight: 200;
+  position: fixed;
+  pointer-events: none;
 }
 
-a.close::before {
-  transform: rotate(45deg);
+.lightbox:focus-within::before,
+.lightbox:focus-within::after {
+  z-index: 2;
+  opacity:.3;
 }
 
-a.close::after {
-  transform: rotate(-45deg);
-}
-
-a.close:hover {
-  opacity: 1;
+a.close:hover::before,
+a.close:hover::after {
+  
+  color: var(--textcolor);
 }
 
 /* -- Loading spinner -- */
