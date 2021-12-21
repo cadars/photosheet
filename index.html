@@ -113,12 +113,16 @@ img {
   opacity: 0.4;
 }
 
-.grid figure a:target,
 .grid figure a:focus {
   outline: 0 none;
   border-radius: 1px;
   box-shadow: 0 0 0 4px;
   background: currentColor;
+}
+
+.grid figure a:target {
+  outline: 1px solid;
+  border-radius: 4px;
 }
 
 .grid figure a:hover + figcaption,
