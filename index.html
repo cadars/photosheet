@@ -46,7 +46,6 @@ footer {
   padding: calc(var(--margin) * 2.5) 0 var(--margin) 0;
   font-size: 0.85em;
   opacity: 0.3;
-  padding-right: 10ch;
 }
 
 h1 {
@@ -325,7 +324,7 @@ input#x-large:checked ~ .grid {
   right: var(--margin);
 }
 
-.lightbox .counter::before {
+.lightbox:focus-within .counter::before {
   content: counter(currentStep) "/" counter(totalStep);
 }
 
