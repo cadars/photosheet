@@ -51,9 +51,9 @@ for($x = 0; $x < $totimg; $x++) {
   $lightbox .= '
   <figure tabindex="0" id="'.$file_slug.'" class="'.$orientation.'">
     <a tabindex="-1" href="#'.$file_slug.'" class="image">
-      <img loading="lazy" width="'.$width.'" height="'.$height.'" src="'.$img_folder.'/'.$a_img[$x].'" alt="'.$file_name.'" title="'.$file_name.'">
+      <img loading="lazy" width="'.$width.'" height="'.$height.'" src="'.$img_folder.'/'.$a_img[$x].'" alt="'.$file_name.'">
     </a>
-    <a tabindex="-1" href="#'.$file_slug.'-thumb" class="close" >Close</a>
+    <a tabindex="-1" href="#'.$file_slug.'-thumb" class="close">Close</a>
   </figure>
   ';
 }
