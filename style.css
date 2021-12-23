@@ -35,6 +35,7 @@ footer {
   padding: calc(var(--margin) * 2.5) 0 var(--margin) 0;
   font-size: 0.85em;
   opacity: 0.3;
+  padding-right: 10ch;
 }
 
 h1 {
@@ -309,8 +310,8 @@ input#x-large:checked ~ .grid {
   text-shadow: 1px 1px 2px var(--backcolor);
   z-index: 2;
   position: fixed;
-  bottom: 1em;
-  right: 1.25em;
+  bottom: var(--margin);
+  right: var(--margin);
 }
 
 .lightbox .counter::before {
@@ -341,8 +342,9 @@ a.close:hover::after,
 .lightbox:focus-within::after {
   top: 0;
   right: 0;
-  padding: 0 1ch 10vmax 10vmax;
+  padding: calc(var(--margin) / 4) calc(var(--margin) / 2) 10vmax 10vmax;
   display: block;
+  line-height: 1;
   content: "\00d7";
   font-size: 2.4em;
   font-weight: 200;
@@ -356,10 +358,11 @@ a.close:hover::after,
   opacity:.3;
 }
 
-a.close:hover::before,
-a.close:hover::after {
-  
-  color: var(--textcolor);
+@media (hover:hover) and (pointer:fine) { 
+  a.close:hover::before,
+  a.close:hover::after {
+    color: var(--textcolor);
+  }
 }
 
 /* -- Loading spinner -- */
