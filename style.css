@@ -186,9 +186,13 @@ input#x-large:checked ~ .grid {
 /* -- Lightbox -- */
 
 .lightbox {
+  display:none;
+}
+
+.fixed .lightbox {
   position: fixed;
   top: 0;
-  right: 100vw;
+  right: 0;
   bottom: 0;
   left: 0;
   display: flex;
@@ -196,10 +200,6 @@ input#x-large:checked ~ .grid {
   scroll-snap-type: x mandatory;
   overscroll-behavior: contain;
   z-index: 5;
-}
-
-.lightbox:focus-within {
-  right: 0; /* hello */
 }
 
 .lightbox:hover {

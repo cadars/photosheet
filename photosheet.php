@@ -42,7 +42,7 @@ for($x = 0; $x < $totimg; $x++) {
   $grid .= '
   <figure class="'.$orientation.'">
     <a href="#'.$file_slug.'" id="'.$file_slug.'-thumb">
-      <img loading="lazy" width="'.$width.'" height="'.$height.'" src="'.$img_folder.'/'.$a_img[$x].'" alt="'.$file_name.'">
+      <img class="open" loading="lazy" width="'.$width.'" height="'.$height.'" src="'.$img_folder.'/'.$a_img[$x].'" alt="'.$file_name.'">
     </a>
     <figcaption>'.$file_name.'</figcaption>
   </figure>
@@ -95,14 +95,25 @@ for($x = 0; $x < $totimg; $x++) {
     This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet</a> was generated on <?php echo date("F j, Y"); ?>
   </footer>
   <script>
+  // show/hide lightbox…
+  document.addEventListener('click', function (event) {
+  	if (!event.target.matches('.open')) return;
+  	document.querySelector('body').classList.add('fixed')
+  }, false);
+  
+  document.addEventListener('click', function (event) {
+    if (!event.target.matches('.close')) return;
+    document.querySelector('body').classList.remove('fixed')
+  }, false);
+  
   // esc key to close
-    document.addEventListener (
-      "keydown", (e) => {
-        if (e.keyCode == 27) {
-          document.activeElement.querySelector('.close').click();
-        }
-      }, false
-    );
+  document.addEventListener (
+  "keydown", (e) => {
+    if (e.keyCode == 27) {
+      document.activeElement.querySelector('.close').click();
+      document.querySelector('body').classList.remove('fixed');
+    }
+  }, false);
   </script>
 </body>
 </html>

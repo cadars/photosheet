@@ -197,9 +197,13 @@ input#x-large:checked ~ .grid {
 /* -- Lightbox -- */
 
 .lightbox {
+  display:none;
+}
+
+.fixed .lightbox {
   position: fixed;
   top: 0;
-  right: 100vw;
+  right: 0;
   bottom: 0;
   left: 0;
   display: flex;
@@ -207,10 +211,6 @@ input#x-large:checked ~ .grid {
   scroll-snap-type: x mandatory;
   overscroll-behavior: contain;
   z-index: 5;
-}
-
-.lightbox:focus-within {
-  right: 0; /* hello */
 }
 
 .lightbox:hover {
@@ -416,245 +416,245 @@ a.close:hover::after,
       
   <figure class="landscape">
     <a href="#a-classic" id="a-classic-thumb">
-      <img loading="lazy" width="980" height="665" src="img/john-margolies/A classic.jpg" alt="A classic">
+      <img class="open" loading="lazy" width="980" height="665" src="img/john-margolies/A classic.jpg" alt="A classic">
     </a>
     <figcaption>A classic</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#apple-pie-exit" id="apple-pie-exit-thumb">
-      <img loading="lazy" width="983" height="668" src="img/john-margolies/Apple pie exit.jpg" alt="Apple pie exit">
+      <img class="open" loading="lazy" width="983" height="668" src="img/john-margolies/Apple pie exit.jpg" alt="Apple pie exit">
     </a>
     <figcaption>Apple pie exit</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#a-taste-of-italy" id="a-taste-of-italy-thumb">
-      <img loading="lazy" width="661" height="974" src="img/john-margolies/A taste of Italy.jpg" alt="A taste of Italy">
+      <img class="open" loading="lazy" width="661" height="974" src="img/john-margolies/A taste of Italy.jpg" alt="A taste of Italy">
     </a>
     <figcaption>A taste of Italy</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#aztec-motel" id="aztec-motel-thumb">
-      <img loading="lazy" width="966" height="640" src="img/john-margolies/Aztec motel.jpg" alt="Aztec motel">
+      <img class="open" loading="lazy" width="966" height="640" src="img/john-margolies/Aztec motel.jpg" alt="Aztec motel">
     </a>
     <figcaption>Aztec motel</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#ballroom-entrance" id="ballroom-entrance-thumb">
-      <img loading="lazy" width="973" height="656" src="img/john-margolies/Ballroom entrance.jpg" alt="Ballroom entrance">
+      <img class="open" loading="lazy" width="973" height="656" src="img/john-margolies/Ballroom entrance.jpg" alt="Ballroom entrance">
     </a>
     <figcaption>Ballroom entrance</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#best-of-both-worlds" id="best-of-both-worlds-thumb">
-      <img loading="lazy" width="977" height="656" src="img/john-margolies/Best of both worlds.jpg" alt="Best of both worlds">
+      <img class="open" loading="lazy" width="977" height="656" src="img/john-margolies/Best of both worlds.jpg" alt="Best of both worlds">
     </a>
     <figcaption>Best of both worlds</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#big-fish" id="big-fish-thumb">
-      <img loading="lazy" width="961" height="649" src="img/john-margolies/Big fish.jpg" alt="Big fish">
+      <img class="open" loading="lazy" width="961" height="649" src="img/john-margolies/Big fish.jpg" alt="Big fish">
     </a>
     <figcaption>Big fish</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#budget-knight" id="budget-knight-thumb">
-      <img loading="lazy" width="993" height="673" src="img/john-margolies/Budget knight.jpg" alt="Budget knight">
+      <img class="open" loading="lazy" width="993" height="673" src="img/john-margolies/Budget knight.jpg" alt="Budget knight">
     </a>
     <figcaption>Budget knight</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#buffalo" id="buffalo-thumb">
-      <img loading="lazy" width="990" height="659" src="img/john-margolies/Buffalo.jpg" alt="Buffalo">
+      <img class="open" loading="lazy" width="990" height="659" src="img/john-margolies/Buffalo.jpg" alt="Buffalo">
     </a>
     <figcaption>Buffalo</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#car-wash" id="car-wash-thumb">
-      <img loading="lazy" width="672" height="985" src="img/john-margolies/Car wash.jpg" alt="Car wash">
+      <img class="open" loading="lazy" width="672" height="985" src="img/john-margolies/Car wash.jpg" alt="Car wash">
     </a>
     <figcaption>Car wash</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#censored-king-kong" id="censored-king-kong-thumb">
-      <img loading="lazy" width="649" height="948" src="img/john-margolies/Censored King Kong.jpg" alt="Censored King Kong">
+      <img class="open" loading="lazy" width="649" height="948" src="img/john-margolies/Censored King Kong.jpg" alt="Censored King Kong">
     </a>
     <figcaption>Censored King Kong</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#chicken-sign" id="chicken-sign-thumb">
-      <img loading="lazy" width="662" height="961" src="img/john-margolies/Chicken sign.jpg" alt="Chicken sign">
+      <img class="open" loading="lazy" width="662" height="961" src="img/john-margolies/Chicken sign.jpg" alt="Chicken sign">
     </a>
     <figcaption>Chicken sign</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#concert-venue" id="concert-venue-thumb">
-      <img loading="lazy" width="950" height="639" src="img/john-margolies/Concert venue.jpg" alt="Concert venue">
+      <img class="open" loading="lazy" width="950" height="639" src="img/john-margolies/Concert venue.jpg" alt="Concert venue">
     </a>
     <figcaption>Concert venue</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#concrete-teepees" id="concrete-teepees-thumb">
-      <img loading="lazy" width="992" height="675" src="img/john-margolies/Concrete teepees.jpg" alt="Concrete teepees">
+      <img class="open" loading="lazy" width="992" height="675" src="img/john-margolies/Concrete teepees.jpg" alt="Concrete teepees">
     </a>
     <figcaption>Concrete teepees</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#dinosaur-village" id="dinosaur-village-thumb">
-      <img loading="lazy" width="977" height="661" src="img/john-margolies/Dinosaur village.jpg" alt="Dinosaur village">
+      <img class="open" loading="lazy" width="977" height="661" src="img/john-margolies/Dinosaur village.jpg" alt="Dinosaur village">
     </a>
     <figcaption>Dinosaur village</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#eye" id="eye-thumb">
-      <img loading="lazy" width="940" height="640" src="img/john-margolies/Eye.jpg" alt="Eye">
+      <img class="open" loading="lazy" width="940" height="640" src="img/john-margolies/Eye.jpg" alt="Eye">
     </a>
     <figcaption>Eye</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#flamingo" id="flamingo-thumb">
-      <img loading="lazy" width="965" height="653" src="img/john-margolies/Flamingo.jpg" alt="Flamingo">
+      <img class="open" loading="lazy" width="965" height="653" src="img/john-margolies/Flamingo.jpg" alt="Flamingo">
     </a>
     <figcaption>Flamingo</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#fox-tower" id="fox-tower-thumb">
-      <img loading="lazy" width="652" height="976" src="img/john-margolies/Fox tower.jpg" alt="Fox tower">
+      <img class="open" loading="lazy" width="652" height="976" src="img/john-margolies/Fox tower.jpg" alt="Fox tower">
     </a>
     <figcaption>Fox tower</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#hat-and-boots" id="hat-and-boots-thumb">
-      <img loading="lazy" width="984" height="664" src="img/john-margolies/Hat and boots.jpg" alt="Hat and boots">
+      <img class="open" loading="lazy" width="984" height="664" src="img/john-margolies/Hat and boots.jpg" alt="Hat and boots">
     </a>
     <figcaption>Hat and boots</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#hoot-owl-cafe" id="hoot-owl-cafe-thumb">
-      <img loading="lazy" width="1001" height="680" src="img/john-margolies/Hoot owl cafe.jpg" alt="Hoot owl cafe">
+      <img class="open" loading="lazy" width="1001" height="680" src="img/john-margolies/Hoot owl cafe.jpg" alt="Hoot owl cafe">
     </a>
     <figcaption>Hoot owl cafe</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#ko-ko-mo" id="ko-ko-mo-thumb">
-      <img loading="lazy" width="968" height="656" src="img/john-margolies/Ko ko mo.jpg" alt="Ko ko mo">
+      <img class="open" loading="lazy" width="968" height="656" src="img/john-margolies/Ko ko mo.jpg" alt="Ko ko mo">
     </a>
     <figcaption>Ko ko mo</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#loch-ness-auto-shop" id="loch-ness-auto-shop-thumb">
-      <img loading="lazy" width="1000" height="672" src="img/john-margolies/Loch Ness auto shop.jpg" alt="Loch Ness auto shop">
+      <img class="open" loading="lazy" width="1000" height="672" src="img/john-margolies/Loch Ness auto shop.jpg" alt="Loch Ness auto shop">
     </a>
     <figcaption>Loch Ness auto shop</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#motel" id="motel-thumb">
-      <img loading="lazy" width="996" height="675" src="img/john-margolies/Motel.jpg" alt="Motel">
+      <img class="open" loading="lazy" width="996" height="675" src="img/john-margolies/Motel.jpg" alt="Motel">
     </a>
     <figcaption>Motel</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#moulin-vert" id="moulin-vert-thumb">
-      <img loading="lazy" width="975" height="656" src="img/john-margolies/Moulin Vert.jpg" alt="Moulin Vert">
+      <img class="open" loading="lazy" width="975" height="656" src="img/john-margolies/Moulin Vert.jpg" alt="Moulin Vert">
     </a>
     <figcaption>Moulin Vert</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#neon-couch" id="neon-couch-thumb">
-      <img loading="lazy" width="984" height="664" src="img/john-margolies/Neon couch.jpg" alt="Neon couch">
+      <img class="open" loading="lazy" width="984" height="664" src="img/john-margolies/Neon couch.jpg" alt="Neon couch">
     </a>
     <figcaption>Neon couch</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#neon-sign" id="neon-sign-thumb">
-      <img loading="lazy" width="654" height="970" src="img/john-margolies/Neon sign.jpg" alt="Neon sign">
+      <img class="open" loading="lazy" width="654" height="970" src="img/john-margolies/Neon sign.jpg" alt="Neon sign">
     </a>
     <figcaption>Neon sign</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#peach" id="peach-thumb">
-      <img loading="lazy" width="667" height="976" src="img/john-margolies/Peach.jpg" alt="Peach">
+      <img class="open" loading="lazy" width="667" height="976" src="img/john-margolies/Peach.jpg" alt="Peach">
     </a>
     <figcaption>Peach</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#psa" id="psa-thumb">
-      <img loading="lazy" width="956" height="652" src="img/john-margolies/PSA.jpg" alt="PSA">
+      <img class="open" loading="lazy" width="956" height="652" src="img/john-margolies/PSA.jpg" alt="PSA">
     </a>
     <figcaption>PSA</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#red-rooster-sign" id="red-rooster-sign-thumb">
-      <img loading="lazy" width="693" height="1000" src="img/john-margolies/Red rooster sign.jpg" alt="Red rooster sign">
+      <img class="open" loading="lazy" width="693" height="1000" src="img/john-margolies/Red rooster sign.jpg" alt="Red rooster sign">
     </a>
     <figcaption>Red rooster sign</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#roadside-art" id="roadside-art-thumb">
-      <img loading="lazy" width="980" height="657" src="img/john-margolies/Roadside art.jpg" alt="Roadside art">
+      <img class="open" loading="lazy" width="980" height="657" src="img/john-margolies/Roadside art.jpg" alt="Roadside art">
     </a>
     <figcaption>Roadside art</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#robot" id="robot-thumb">
-      <img loading="lazy" width="666" height="976" src="img/john-margolies/Robot.jpg" alt="Robot">
+      <img class="open" loading="lazy" width="666" height="976" src="img/john-margolies/Robot.jpg" alt="Robot">
     </a>
     <figcaption>Robot</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#teapot-cabaret" id="teapot-cabaret-thumb">
-      <img loading="lazy" width="970" height="648" src="img/john-margolies/Teapot cabaret.jpg" alt="Teapot cabaret">
+      <img class="open" loading="lazy" width="970" height="648" src="img/john-margolies/Teapot cabaret.jpg" alt="Teapot cabaret">
     </a>
     <figcaption>Teapot cabaret</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#trading-post" id="trading-post-thumb">
-      <img loading="lazy" width="992" height="642" src="img/john-margolies/Trading post.jpg" alt="Trading post">
+      <img class="open" loading="lazy" width="992" height="642" src="img/john-margolies/Trading post.jpg" alt="Trading post">
     </a>
     <figcaption>Trading post</figcaption>
   </figure>
   
   <figure class="landscape">
     <a href="#whale-garage" id="whale-garage-thumb">
-      <img loading="lazy" width="978" height="663" src="img/john-margolies/Whale garage.jpg" alt="Whale garage">
+      <img class="open" loading="lazy" width="978" height="663" src="img/john-margolies/Whale garage.jpg" alt="Whale garage">
     </a>
     <figcaption>Whale garage</figcaption>
   </figure>
   
   <figure class="portrait">
     <a href="#white-rooster-sign" id="white-rooster-sign-thumb">
-      <img loading="lazy" width="657" height="963" src="img/john-margolies/White rooster sign.jpg" alt="White rooster sign">
+      <img class="open" loading="lazy" width="657" height="963" src="img/john-margolies/White rooster sign.jpg" alt="White rooster sign">
     </a>
     <figcaption>White rooster sign</figcaption>
   </figure>
@@ -910,16 +910,27 @@ a.close:hover::after,
     </div> 
   </main>
   <footer>
-    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet</a> was generated on December 23, 2021  </footer>
+    This <a target="_blank" rel="noopener" href="http://github.com/cadars/photosheet">photo sheet</a> was generated on December 26, 2021  </footer>
   <script>
+  // show/hide lightbox…
+  document.addEventListener('click', function (event) {
+  	if (!event.target.matches('.open')) return;
+  	document.querySelector('body').classList.add('fixed')
+  }, false);
+  
+  document.addEventListener('click', function (event) {
+    if (!event.target.matches('.close')) return;
+    document.querySelector('body').classList.remove('fixed')
+  }, false);
+  
   // esc key to close
-    document.addEventListener (
-      "keydown", (e) => {
-        if (e.keyCode == 27) {
-          document.activeElement.querySelector('.close').click();
-        }
-      }, false
-    );
+  document.addEventListener (
+  "keydown", (e) => {
+    if (e.keyCode == 27) {
+      document.activeElement.querySelector('.close').click();
+      document.querySelector('body').classList.remove('fixed');
+    }
+  }, false);
   </script>
 </body>
 </html>
