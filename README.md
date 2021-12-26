@@ -1,7 +1,7 @@
 | ⚠️ | Experimental, contains CSS tricks |
 |----|:----------------------------------|
 
-This was intended as a HTML/CSS-only template, but I could not find a way to rely on `:focus-within` to reliably show and hide the lightbox container. I should revisit it when `:target-within` gets implemented in browsers, someday. Please get v0.1 for a more minimal JS-free solution.
+This was intended as an HTML/CSS-only project, but I could not find a way to reliably use `:focus-within` to show and hide the lightbox container. I might revisit it if/when `:target-within` gets implemented in browsers. Please check v0.1 for a more minimal JS-free solution.
 
 ***
 
