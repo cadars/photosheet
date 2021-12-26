@@ -1,6 +1,10 @@
 | ⚠️ | Experimental, contains CSS tricks |
 |----|:----------------------------------|
 
+Originally made to generate an HTML/CSS-only document, but I could not find a way to reliably use `:focus-within` to show and hide the lightbox container. I might revisit it if/when `:target-within` gets implemented in browsers, or if I find another idea. Please check v0.1 for a more minimal JS-free solution.
+
+***
+
 Requirements: PHP
 
 1. Put your images in the `img` folder
