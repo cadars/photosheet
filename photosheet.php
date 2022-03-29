@@ -17,9 +17,11 @@ function create_slug($string) {
 }
 
 $dimg = opendir($img_folder);
+$grid = '';
+$lightbox = '';
 
 while($img_file = readdir($dimg)) {
-  if(in_array(strtolower(end(explode('.',$img_file))),$allowed_types))
+  if(in_array(strtolower(@end(explode('.',$img_file))),$allowed_types))
   {$a_img[] = $img_file;} 
 }
 
