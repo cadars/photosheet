@@ -39,4 +39,4 @@ php photosheet.php > index.html
 </details>
 
 Please check v0.1 for a simpler javascript-free version.\
-The CSS images slideshow alone is available here: https://codepen.io/cadars/pen/PoJGMNP
+The CSS images slideshow alone is [available here](https://codepen.io/cadars/pen/PoJGMNP).
