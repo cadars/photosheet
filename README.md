@@ -35,7 +35,7 @@ php photosheet.php > index.html
   --thumbsize: 156px;
   --slide-transition: auto;
   ```
-Please check v0.1 for a simpler javascript-free version.\
+Please check [v0.1](https://github.com/cadars/photosheet/releases/tag/v0.1) for a simpler javascript-free version.\
 The CSS images slideshow alone is [available here](https://codepen.io/cadars/pen/PoJGMNP).
   
 </details>
